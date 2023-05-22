@@ -3,10 +3,13 @@ logs
 *.log
 npm-debug.log*
 
+<<<<<<< HEAD
 # mine
 dist
 .*
 
+=======
+>>>>>>> sprint_1
 # Runtime data
 pids
 *.pid
@@ -25,8 +28,9 @@ coverage
 .lock-wscript
 
 # Compiled binary addons (http://nodejs.org/api/addons.html)
-build/Release
 
+dist
+.parcel-cache
 # Dependency directories
 node_modules
 jspm_packages

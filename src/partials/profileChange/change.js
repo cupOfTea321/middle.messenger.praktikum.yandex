@@ -13,7 +13,7 @@ const componentItems = items.map(item => {
     return `
         <div class="profile-data__row" id="profile-data">
             <label class="bold">${item.first}</label>
-            <p class="second">${item.second}</p>
+            <input class="second"  value=${item.second} />
         </div>
         <hr>
     `;

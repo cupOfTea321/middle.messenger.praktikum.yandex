@@ -1,6 +1,7 @@
 {
   "name": "yandex-messanger",
   "version": "1.0.0",
+  "engine": "18.13.0",
   "description": "",
   "scripts": {
     "parcelStart": "parcel --no-cache src/index.hbs",

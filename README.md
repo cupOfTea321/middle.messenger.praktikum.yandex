@@ -12,7 +12,7 @@ https://www.figma.com/file/jF5fFFzgGOxQeB4CmKWTiE/Chat_external_link?type=design
 
 Ссылка на pull-request
 ---
-#2
+[#1](https://github.com/cupOfTea321/middle.messenger.praktikum.yandex/pull/3)
 
 Ссылка на опубликованное приложение
 ---

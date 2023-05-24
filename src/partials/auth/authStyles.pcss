@@ -44,14 +44,19 @@
         border-bottom: 1px solid var(--new);
         width: 80%;
     }
-    a button{
+    input:focus {
+        outline: none;
+    }
+    button a{
             position: absolute;
             width: 80%;
             left: 10%;
+            text-decoration: none;
+
         }
 
 }
-.first-button{
+.first-button a{
 
     bottom: 60px;
     padding: 12px 70px;
@@ -59,8 +64,9 @@
     background: var(--new);
     border: none;
     color: white;
+    text-decoration: none;
 }
-.second-button{
+.second-button a{
     bottom: 30px;
     background: none;
     border: none;

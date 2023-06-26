@@ -1,6 +1,12 @@
 
-
-const items = [
+interface ChatItems {
+    name: string
+    you: boolean
+    message: string
+    time: string
+    newMessage: boolean | number
+}
+const chatItems: ChatItems[] = [
     {name: 'Андрей', you: false, message: 'Изображение', time: '10:49', newMessage: 2},
     {name: 'Киноклуб', you: true, message: 'стикер', time: '10:49', newMessage: false},
     {
@@ -33,7 +39,7 @@ const items = [
     },
 ];
 
-const componentItems = items.map(item => {
+const chatComponentItems = chatItems.map(item => {
 
     return `
     <hr>
@@ -57,7 +63,7 @@ const componentItems = items.map(item => {
 });
 
 if (typeof window !== 'undefined') {
-    document.getElementById('chat-search__dialogs').innerHTML = componentItems.join('');
+    document.getElementById('chat-search__dialogs').innerHTML = chatComponentItems.join('');
 
 }
 

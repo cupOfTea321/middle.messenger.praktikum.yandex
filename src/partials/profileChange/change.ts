@@ -1,6 +1,10 @@
 
-
-const items = [
+interface ChangeItems {
+    first: string;
+    second: string;
+    name: string
+}
+const changeItems: ChangeItems[] = [
     {first: 'Почта', second: 'pochta@yandex.ru', name: 'email'},
     {first: 'Логин', second: 'ivanivanov', name: 'login'},
     {first: 'Имя', second: 'Иван', name: 'first_name'},
@@ -8,7 +12,7 @@ const items = [
     {first: 'Имя в чате', second: 'Иван', name: 'display_name'},
 ];
 
-const componentItems = items.map(item => {
+const changeComponentItems = changeItems.map(item => {
 
     return `
         <div class="profile-data__row" id="profile-data">
@@ -20,7 +24,7 @@ const componentItems = items.map(item => {
 });
 
 if (typeof window !== 'undefined') {
-    document.getElementById('profile-data').innerHTML = componentItems.join('');
+    document.getElementById('profile-data').innerHTML = changeComponentItems.join('');
 }
 
 

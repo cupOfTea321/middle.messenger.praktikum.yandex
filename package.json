@@ -5,6 +5,7 @@
   "description": "",
   "scripts": {
     "parcelStart": "parcel --no-cache src/index.hbs",
+    "start2": "parcel build ./static/index.html  && node ./server.js",
     "build": "parcel build ./src/index.hbs",
     "start": "parcel build ./src/index.hbs && node server.js --no-cache",
     "eslint": "eslint"

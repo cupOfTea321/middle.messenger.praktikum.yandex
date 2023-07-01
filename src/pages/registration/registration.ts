@@ -23,7 +23,7 @@ const myComponentItems = myItems.map(item => {
 });
 
 if (typeof window !== 'undefined') {
-    document.getElementById('login-form__items').innerHTML = myComponentItems.join('');
+    document.getElementById('registration-form__items').innerHTML = myComponentItems.join('');
 
 }
 

@@ -1,0 +1,22 @@
+{
+  "name": "vite-messenger",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "eslint": "^8.44.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "postcss-nested": "^6.0.1",
+    "typescript": "^5.0.2",
+    "vite": "^4.3.9",
+    "vite-plugin-handlebars": "^1.6.0"
+  },
+  "dependencies": {
+    "handlebars": "^4.7.7"
+  }
+}

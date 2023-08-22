@@ -5,7 +5,20 @@ import {Button} from '../../components/Button';
 interface RegistrationPageProps {
     title: string;
 }
+interface LoginItems {
+    name: string;
+    label: string;
+}
+const myItems: LoginItems[] = [
+    {name: 'email',label: 'Почта'},
+    {name: 'login',label: 'Логин'},
+    {name: 'first_name',label: 'Имя'},
+    {name: 'second_name',label: 'Фамилия'},
+    {name: 'phone',label: 'Телефон'},
+    {name: 'password',label: 'Пароль'},
+    {name: 'password2',label: 'Пароль (ещё раз)'},
 
+];
 export class RegistrationPage extends Block<RegistrationPageProps> {
     constructor(props: RegistrationPageProps) {
         super('div', props);
@@ -30,11 +43,14 @@ export class RegistrationPage extends Block<RegistrationPageProps> {
             Регистрация
         </h1>
 
-        <span class="login-form__items" id="login-form__items">
+        <span class="registration-form__items" id="registration-form__items">
 
+        
+        ${myItems.map(item => (`
+            <label for="password">${item.label}</label>
+                <input name=${item.name} type="text">`
+        )).join('')}
         </span>
-
-
         <button class="first-button" name="Sign up">
             <a href="/">
                 Зарегистрироваться

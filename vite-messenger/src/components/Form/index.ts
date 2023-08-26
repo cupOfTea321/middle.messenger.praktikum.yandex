@@ -10,7 +10,7 @@ interface ButtonProps {
   };
 }
 
-export class Button extends Block<ButtonProps> {
+export class Form extends Block<ButtonProps> {
   constructor(props: ButtonProps) {
     super({
       ...props,
@@ -19,7 +19,7 @@ export class Button extends Block<ButtonProps> {
       }
     });
     // НАВЕШИВАЕМ КЛАСС НА КНОПКУ
-    this.element!.classList.add(styles.btn)
+    // this.element!.classList.add(styles.btn)
   }
 
 

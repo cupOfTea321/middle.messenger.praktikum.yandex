@@ -1,0 +1,15 @@
+<main class="auth">
+    {{#Form onSubmit=form.onSubmit ref="form"}}
+
+        {{#each fields}}
+            <span class="registration-form__items" onfocusout="{{ onFocusOut }}">
+            <label for="password">{{label}}</label>
+                {{{Field onFocusOut=this.onFocusOut  class=../class  ref=this.ref label=this.label   }}}
+            </span>
+        {{/each}}
+        {{#each buttons}}
+            {{{Button  onSubmit=../onSubmit class=this.class  ref="authBtn" label=this.label    type=../type
+                       onClick=../onBtnClick}}}
+        {{/each}}
+    {{/Form}}
+</main>

@@ -1,5 +1,5 @@
-import Block from '../../utils/Block';
-import styles from './button.css'
+ import template from './button.hbs';
+ import Block from "../../utils/Block";
 
 interface ButtonProps {
   label: string;
@@ -10,7 +10,7 @@ interface ButtonProps {
   };
 }
 
-export class Button extends Block<ButtonProps> {
+export class Button extends Block {
   constructor(props: ButtonProps) {
     super({
       ...props,
@@ -18,12 +18,9 @@ export class Button extends Block<ButtonProps> {
         click: props.onClick
       }
     });
-    // НАВЕШИВАЕМ КЛАСС НА КНОПКУ
-    this.element!.classList.add(styles.btn)
   }
 
-
   render() {
-    return this.compile(`{{label}}`, this.props);
+    return this.compile(template, this.props);
   }
 }

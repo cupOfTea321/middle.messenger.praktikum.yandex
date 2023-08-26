@@ -1,29 +1,22 @@
-import Handlebars from 'handlebars';
-import { nanoid } from 'nanoid';
+import {EventBus} from "./EventBus";
+import {nanoid} from 'nanoid';
 
-import { EventBus } from './EventBus';
-
-// private - доступен только внутри класса
-// public - может быть вызван откуда угодно
-// protected - доступен внутри класса и у наследников
 // Нельзя создавать экземпляр данного класса
-class Block<P extends Record<string, any> = any> {
-  // ИМИТАЦИЯ ЖИЗНЕННЫХ ЦИКЛОВ
+class Block {
   static EVENTS = {
     INIT: "init",
     FLOW_CDM: "flow:component-did-mount",
     FLOW_CDU: "flow:component-did-update",
     FLOW_RENDER: "flow:render"
-
-    // НЕ ХВАТАЕТ UNMOUNT, НО МЫ НЕ ЗАБОТИМСЯ ОБ УТЕЧКАХ ПАМЯТИ
-  } as const;
+  };
 
   public id = nanoid(6);
-  protected props: P;
+  protected props: any;
+  protected refs: Record<string, Block> = {};
   public children: Record<string, Block>;
   private eventBus: () => EventBus;
   private _element: HTMLElement | null = null;
-  private _meta: { tagName: string; props: P; };
+  private _meta: { props: any; };
 
   /** JSDoc
    * @param {string} tagName
@@ -31,14 +24,13 @@ class Block<P extends Record<string, any> = any> {
    *
    * @returns {void}
    */
-  constructor(tagName = "div", propsWithChildren: P) {
+  constructor(propsWithChildren: any = {}) {
     const eventBus = new EventBus();
 
-    const { props, children } = this._getChildrenAndProps(propsWithChildren);
+    const {props, children} = this._getChildrenAndProps(propsWithChildren);
 
     this._meta = {
-      tagName,
-      props: props as P
+      props
     };
 
     this.children = children;
@@ -51,23 +43,23 @@ class Block<P extends Record<string, any> = any> {
     eventBus.emit(Block.EVENTS.INIT);
   }
 
-  _getChildrenAndProps(childrenAndProps: P): { props: P, children: Record<string, Block>} {
-    const props: Record<string, unknown> = {};
+  _getChildrenAndProps(childrenAndProps: any) {
+    const props: Record<string, any> = {};
     const children: Record<string, Block> = {};
 
     Object.entries(childrenAndProps).forEach(([key, value]) => {
       if (value instanceof Block) {
-        children[key as string] = value;
+        children[key] = value;
       } else {
         props[key] = value;
       }
     });
 
-    return { props: props as P, children };
+    return {props, children};
   }
 
   _addEvents() {
-    const {events = {}} = this.props as P & { events: Record<string, () => void> };
+    const {events = {}} = this.props as { events: Record<string, () => void> };
 
     Object.keys(events).forEach(eventName => {
       this._element?.addEventListener(eventName, events[eventName]);
@@ -78,57 +70,42 @@ class Block<P extends Record<string, any> = any> {
     eventBus.on(Block.EVENTS.INIT, this._init.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
-    // ПОДПИСКА МЕТОДА _render НА СОБЫТИЕ RENDER
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
   }
 
-  // СОЗДАНИЕ КОМПОНЕНТЫ ОБЁРТКИ
-  _createResources() {
-    const { tagName } = this._meta;
-    this._element = this._createDocumentElement(tagName);
-  }
-
-  // ИНИЦИАЛИЗИРУЮЩИЙ МЕТОД
   private _init() {
-    // СОЗДАНИЕ КОМПОНЕНТА - ОБЁРТКИ
-    this._createResources();
-
-    // САМА ИНИЦИАЛИЗАЦИЯ
     this.init();
 
-    // ВЫЗОВ ПЕРВОГО МЕТОДА
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
-  protected init() {}
+  protected init() {
+  }
 
-  // ОПОВЕЩЕНИЕ О ПОЯВЛЕНИИ КОМПОНЕНТА НА СТРАНИЦЕ
   _componentDidMount() {
     this.componentDidMount();
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+  }
 
-  // НЕОБХОДИМО ВЫЗВАТЬ СНАРУЖИ, КОГДА БЛОК ПОЯВИЛСЯ
   public dispatchComponentDidMount() {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
 
     Object.values(this.children).forEach(child => child.dispatchComponentDidMount());
   }
 
-  private _componentDidUpdate(oldProps: P, newProps: P) {
+  private _componentDidUpdate(oldProps: any, newProps: any) {
     if (this.componentDidUpdate(oldProps, newProps)) {
       this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
   }
 
-  // ВЫЗЫВАЕТСЯ ПОСЛЕ ОБНОВЛЕНИЯ ПРОПСОВ
-  protected componentDidUpdate(oldProps: P, newProps: P) {
+  protected componentDidUpdate(oldProps: any, newProps: any) {
     return true;
   }
 
-  // ИЗМЕНЕНИЕ ВНЕШНИХ ПАРАМЕТРОВ
-  setProps = (nextProps: P) => {
+  setProps = (nextProps: any) => {
     if (!nextProps) {
       return;
     }
@@ -140,56 +117,35 @@ class Block<P extends Record<string, any> = any> {
     return this._element;
   }
 
-  // РЕНДЕР КОМПОНЕНТА
   private _render() {
     const fragment = this.render();
 
-    this._element!.innerHTML = '';
+    const newElement = fragment.firstElementChild as HTMLElement;
 
-    this._element!.append(fragment);
+    if (this._element) {
+      this._element.replaceWith(newElement);
+    }
+
+    this._element = newElement;
 
     this._addEvents();
   }
 
-  // HANDLEBARS ПРЕОБРАЗУЕТ В HTML
-  // ПЕРЕДАЧА ПРОИСХОДИТ ЧЕРЕЗ СТРОКУ,
-  // ПОЭТОМУ ВАЖНО ГДЕ-ТО СОХРАНИТЬ
-  // ПРИВЯЗАННЫЕ СОБЫТИЯ
-  // ОБРАБОТЧИКИ ВАЖНО ПЕРЕНОСИТЬ ОТДЕЛЬНО
-  // СОЕДИНЯЕТ ШАБЛОНИЗАТОР И ТРЮК С ЗАГЛУШКОЙ
-  protected compile(template: string, context: any) {
-    const contextAndStubs = { ...context };
+  protected compile(template: (context: any) => string, context: any) {
+    const contextAndStubs = {...context, __refs: this.refs};
 
-    // СОЗДАЁМ ЗАГЛУШКУ, ЧТОБЫ ТУДА СРАЗУ ПЕРЕНЕСТИ ИВЕНТЫ ??
-    Object.entries(this.children).forEach(([name, component]) => {
-      if (Array.isArray(component)){
-        // случай с массивом
-      }
-      contextAndStubs[name] = `<div data-id="${component.id}"></div>`;
-    });
-
-    // ПЕРЕДАЁМ ШАБЛОН
-    const html = Handlebars.compile(template)(contextAndStubs);
+    const html = template(contextAndStubs);
 
     const temp = document.createElement('template');
 
     temp.innerHTML = html;
 
-    Object.entries(this.children).forEach(([_, component]) => {
-      const stub = temp.content.querySelector(`[data-id="${component.id}"]`);
-
-      if (!stub) {
-        return;
-      }
-
-      component.getContent()?.append(...Array.from(stub.childNodes));
-
-      stub.replaceWith(component.getContent()!);
+    contextAndStubs.__children?.forEach(({embed}: any) => {
+      embed(temp.content);
     });
 
     return temp.content;
   }
-
 
   protected render(): DocumentFragment {
     return new DocumentFragment();
@@ -199,20 +155,22 @@ class Block<P extends Record<string, any> = any> {
     return this.element;
   }
 
-  // ПРОКСИРОВАНИЕ ВНЕШНИХ ПАРАМЕТРОВ
-  _makePropsProxy(props: P) {
+  _makePropsProxy(props: any) {
+    // Ещё один способ передачи this, но он больше не применяется с приходом ES6+
     const self = this;
 
     return new Proxy(props, {
-      get(target, prop: string) {
+      get(target, prop) {
         const value = target[prop];
         return typeof value === "function" ? value.bind(target) : value;
       },
-      set(target, prop: string, value) {
-        const oldTarget = { ...target }
+      set(target, prop, value) {
+        const oldTarget = {...target}
 
-        target[prop as keyof P] = value;
+        target[prop] = value;
 
+        // Запускаем обновление компоненты
+        // Плохой cloneDeep, в следующей итерации нужно заставлять добавлять cloneDeep им самим
         self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);
         return true;
       },
@@ -223,6 +181,7 @@ class Block<P extends Record<string, any> = any> {
   }
 
   _createDocumentElement(tagName: string) {
+    // Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
     return document.createElement(tagName);
   }
 

@@ -1,0 +1,26 @@
+<main class="login">
+    <form class="form" id="reg__form">
+        <h1>
+            Регистрация
+        </h1>
+
+<!--        <span class="registration-form__items" id="registration-form__items">-->
+
+
+<!--        ${myItems.map(item => (`-->
+<!--            <label for="password">${item.label}</label>-->
+<!--                <input name=${item.name} type="text">`-->
+<!--        )).join('')}-->
+<!--        </span>-->
+        {{#each fields}}
+            {{{Field  class=../class  ref="field" label=this.label  onClick=../onBtnClick}}}
+        {{/each}}
+
+        {{#each buttons}}
+            {{{Button  class=this.class  ref="authBtn" label=this.label    type=../type onClick=../onBtnClick}}}
+        {{/each}}
+
+
+    </form>
+
+</main>

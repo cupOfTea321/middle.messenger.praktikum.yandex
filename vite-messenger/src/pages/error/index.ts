@@ -1,11 +1,12 @@
 import Block from '../../utils/Block';
-import template from "./profile.hbs";
+import template from "./error.hbs";
 
 interface ChatPageProps {
     title: string;
 }
 
-export class ProfilePage extends Block<ChatPageProps> {
+export class ErrorPage extends Block<ChatPageProps> {
+
     render() {
         return this.compile(template, this.props);
     }

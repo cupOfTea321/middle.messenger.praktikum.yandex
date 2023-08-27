@@ -1,10 +1,8 @@
 import Block from '../../utils/Block';
-import {Button} from '../../components/Button';
-import {Form} from "../../components/Form";
 import template from "./reg.hbs";
 import {render} from "../../utils/render";
-import Field from "../../testComponents/Field";
-// import styles from '../../components/Button/button.css'
+import Field from "../../components/Field";
+
 interface RegistrationPageProps {
     title: string;
 }

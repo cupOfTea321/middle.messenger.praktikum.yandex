@@ -2,6 +2,7 @@
 import template from "./profileAside.hbs";
 import template2 from "./profileMain.hbs";
 import template3 from "./profileItem.hbs";
+import template4 from "./changeItem.hbs";
 import Block from "../../utils/Block";
  import asideLine from "../../../assets/asideLine.png"
  import profileImg from "../../../assets/profileImg.png"
@@ -25,6 +26,9 @@ export  class ProfileMain extends Block {
         super({
             ...props,
             profileImg,
+            onClickChange: () => {
+                render('change')
+            },
             fields: [
                 {first: 'Почта', second: 'pochta@yandex.ru'},
                 {first: 'Логин', second: 'ivanivanov'},
@@ -47,5 +51,16 @@ export  class ProfileItem extends Block {
     }
     render() {
         return this.compile(template3, this.props);
+    }
+}
+export  class ChangeItem extends Block {
+    constructor(props) {
+        super({
+            ...props,
+            profileImg,
+        })
+    }
+    render() {
+        return this.compile(template4, this.props);
     }
 }

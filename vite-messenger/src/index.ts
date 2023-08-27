@@ -1,11 +1,11 @@
 import {render} from "./utils/render";
-import {Button} from "./testComponents/Button";
-import Card from "./testComponents/Card";
+import {Button} from "./components/Button";
+import Card from "./components/Card";
 import {registerComponent} from "./utils/resgiterComponent";
-import Field from "./testComponents/Field";
-import Form from "./testComponents/Form";
-import {ChatItem, ChatMain, ChatSearch} from "./testComponents/Chat";
-import {ProfileAside, ProfileItem, ProfileMain} from "./testComponents/Profile";
+import Field from "./components/Field";
+import Form from "./components/Form";
+import {ChatItem, ChatMain, ChatSearch} from "./components/Chat";
+import {ChangeItem, ProfileAside, ProfileItem, ProfileMain} from "./components/Profile";
 
 
 registerComponent('Button', Button);
@@ -18,6 +18,7 @@ registerComponent('ChatItem', ChatItem);
 registerComponent('ProfileAside', ProfileAside);
 registerComponent('ProfileMain', ProfileMain);
 registerComponent('ProfileItem', ProfileItem);
+registerComponent('ChangeItem', ChangeItem);
 
 window.addEventListener('DOMContentLoaded', () => {
     render('auth')

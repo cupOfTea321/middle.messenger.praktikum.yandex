@@ -1,7 +1,7 @@
 import Block from '../../utils/Block';
 import template from "./auth.hbs";
 import {render} from "../../utils/render";
-import Field from "../../testComponents/Field";
+import Field from "../../components/Field";
 
 interface AuthPageProps {
     title: string;

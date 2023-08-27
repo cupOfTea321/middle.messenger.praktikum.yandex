@@ -1,4 +1,3 @@
-
 import template from "./chatMain.hbs";
 import template2 from "./chatSearch.hbs";
 import template3 from "./chatItem.hbs";
@@ -8,6 +7,8 @@ import camera from "../../../assets/camera.png";
 import sawIcon from "../../../assets/sawIcon.png";
 import addIcon from "../../../assets/addIcon.png";
 import sandIcon from "../../../assets/sandIcon.png";
+import pointsIcon from "../../../assets/pointsIcon.png";
+import {render} from "../../utils/render";
 
 export class ChatMain extends Block {
     constructor(props) {
@@ -17,18 +18,28 @@ export class ChatMain extends Block {
             camera,
             sawIcon,
             sandIcon,
-            addIcon
+            addIcon,
+            pointsIcon
         });
     }
+
     render() {
         return this.compile(template, this.props);
     }
 }
+
 export class ChatSearch extends Block {
     constructor(props) {
         super({
 
                 ...props,
+            events: {
+                click: props.onClick
+            },
+                onClickChat: () => {
+                    render('profile')
+                    console.log('onClick')
+                },
                 chats: [
                     {
                         ava: avatar,
@@ -83,10 +94,12 @@ export class ChatSearch extends Block {
             },
         );
     }
+
     render() {
         return this.compile(template2, this.props);
     }
 }
+
 export class ChatItem extends Block {
     render() {
         return this.compile(template3, this.props);

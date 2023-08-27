@@ -19,12 +19,14 @@ import {HomePage} from "../pages/Home";
 import {LoginPage} from "../pages/Login";
 import {AuthPage} from "../pages/auth";
 import {RegistrationPage} from "../pages/registration";
+import {ChatPage} from "../pages/chat";
 
 const ROUTES = {
-    'home': HomePage,
-    'login': LoginPage,
+    // 'home': HomePage,
+    // 'login': LoginPage,
     'auth': AuthPage,
     'reg': RegistrationPage,
+    'chat': ChatPage,
 }
 
 export function render(name: keyof typeof ROUTES) {

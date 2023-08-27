@@ -16,10 +16,45 @@ export class RegistrationPage extends Block<RegistrationPageProps> {
         const passRegExp = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,40}$/
         const phoneRegExp =  /^\+?\d{10,15}$/
 
+        const myValue:  Record<string, string> = {
+            email:  '',
+            login: '',
+            first_name: '',
+            second_name:'',
+            phone: '',
+            password: '',
+            password2: '',
+        }
+
         super({
             type: 'button',
             ...props,
+            onSubmit: (e: MouseEvent) => {
+                e.preventDefault();
+                let fieldsName = this.props.fields;
+                let hasErrors = false
 
+                for (let i = 0; i < fieldsName.length; i++) {
+                    for (let key in myValue) {
+                        let nameRef = this.props.fields[i].ref;
+
+                        if (key === fieldsName[i].name && myValue[key].length === 0) {
+
+                            this.refs[nameRef].setProps({
+                                error: 'пустое поле',
+                                req: true,
+                            })
+
+                            hasErrors = true;
+                        }
+                    }
+                }
+                if (hasErrors) {
+                    return;
+                }
+                console.log(myValue);
+                render('chat')
+            },
             onBtnClick: () => {
                 render('auth');
             },
@@ -46,6 +81,10 @@ export class RegistrationPage extends Block<RegistrationPageProps> {
                         const target = e.target as HTMLInputElement;
                         target && (this.refs.regEmail as Field).checkMatches(target.value, this.refs.regEmail, emailRegExp, 'введите корректную почту');
                     },
+                    onChange: (e: FocusEvent) => {
+                        const target = e.target as HTMLInputElement
+                        myValue.email = target.value;
+                    },
                 },
                 {
                     name: 'login',
@@ -54,6 +93,10 @@ export class RegistrationPage extends Block<RegistrationPageProps> {
                     onFocusOut: (e: FocusEvent) => {
                         const target = e.target as HTMLInputElement;
                         target && (this.refs.regLogin as Field).checkMatches(target.value, this.refs.regLogin, loginRegExp, 'логин должен быть длиннее 3 символов и начинаться с буквы');
+                    },
+                    onChange: (e: FocusEvent) => {
+                        const target = e.target as HTMLInputElement
+                        myValue.login = target.value;
                     },
                 },
                 {
@@ -64,6 +107,10 @@ export class RegistrationPage extends Block<RegistrationPageProps> {
                         const target = e.target as HTMLInputElement;
                         target && (this.refs.regFirst as Field).checkMatches(target.value, this.refs.regFirst, nameRegExp, 'введите корректное имя');
                     },
+                    onChange: (e: FocusEvent) => {
+                        const target = e.target as HTMLInputElement
+                        myValue.first_name = target.value;
+                    },
                 },
                 {
                     name: 'second_name',
@@ -72,6 +119,10 @@ export class RegistrationPage extends Block<RegistrationPageProps> {
                     onFocusOut: (e: FocusEvent) => {
                         const target = e.target as HTMLInputElement;
                         target && (this.refs.regSecond as Field).checkMatches(target.value, this.refs.regSecond, nameRegExp, 'введите корректную фамилию');
+                    },
+                    onChange: (e: FocusEvent) => {
+                        const target = e.target as HTMLInputElement
+                        myValue.second_name = target.value;
                     },
                 },
                 {
@@ -82,6 +133,10 @@ export class RegistrationPage extends Block<RegistrationPageProps> {
                         const target = e.target as HTMLInputElement;
                         target && (this.refs.regPhone as Field).checkMatches(target.value, this.refs.regPhone, phoneRegExp, 'введите корректную фамилию');
                     },
+                    onChange: (e: FocusEvent) => {
+                        const target = e.target as HTMLInputElement
+                        myValue.phone = target.value;
+                    },
                 },
                 {
                     name: 'password',
@@ -91,6 +146,10 @@ export class RegistrationPage extends Block<RegistrationPageProps> {
                         const target = e.target as HTMLInputElement;
                         target && (this.refs.regPass as Field).checkMatches(target.value, this.refs.regPass, passRegExp, 'пароль длиною 8-40 символов, содержит заглавную и цифру');
                     },
+                    onChange: (e: FocusEvent) => {
+                        const target = e.target as HTMLInputElement
+                        myValue.password = target.value;
+                    },
                 },
                 {
                     name: 'password2',
@@ -99,6 +158,10 @@ export class RegistrationPage extends Block<RegistrationPageProps> {
                     onFocusOut: (e: FocusEvent) => {
                         const target = e.target as HTMLInputElement;
                         target && (this.refs.regPass2 as Field).checkMatches(target.value, this.refs.regPass2, passRegExp, 'пароль длиною 8-40 символов, содержит заглавную и цифру');
+                    },
+                    onChange: (e: FocusEvent) => {
+                        const target = e.target as HTMLInputElement
+                        myValue.password2 = target.value;
                     },
                 },
             ]

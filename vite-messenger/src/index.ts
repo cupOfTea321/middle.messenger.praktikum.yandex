@@ -4,43 +4,17 @@ import Card from "./testComponents/Card";
 import {registerComponent} from "./utils/resgiterComponent";
 import Field from "./testComponents/Field";
 import Form from "./testComponents/Form";
+import {ChatItem, ChatMain, ChatSearch} from "./testComponents/Chat";
 
-// window.addEventListener('DOMContentLoaded', () => {
-//     const root = document.querySelector('#root')!;
-//
-//     const authPage = new Index({ title: 'Home page' });
-//
-//     root.append(authPage.getContent()!);
-//
-//     authPage.dispatchComponentDidMount();
-// });
+
 registerComponent('Button', Button);
 registerComponent('Field', Field);
 registerComponent('Card', Card);
 registerComponent('Form', Form);
+registerComponent('ChatMain', ChatMain);
+registerComponent('ChatSearch', ChatSearch);
+registerComponent('ChatItem', ChatItem);
 
 window.addEventListener('DOMContentLoaded', () => {
     render('auth')
 });
-
-
-// switch (window.location.pathname) {
-//     case "/":
-//         render("#app", Index);
-//         break;
-//     case "/registration":
-//         render("#app", Index);
-//         break;
-//     case "/chat":
-//         render("#app", ChatPage);
-//         break;
-//     case "/profile":
-//         render("#app", ProfilePage);
-//         break;
-//     case "/change":
-//         render("#app", ChangeData);
-//         break;
-//     default:
-//         render("#app", ErrorPage);
-//         break;
-// }

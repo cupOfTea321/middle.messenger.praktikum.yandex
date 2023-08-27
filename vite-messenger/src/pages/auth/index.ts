@@ -47,6 +47,7 @@ export class AuthPage extends Block<AuthPageProps> {
                         return;
                     }
                     console.log(myValue);
+                    render('chat')
                 },
                 fields: [
                     {

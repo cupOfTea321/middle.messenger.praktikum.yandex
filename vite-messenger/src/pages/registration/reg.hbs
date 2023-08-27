@@ -4,16 +4,35 @@
             Регистрация
         </h1>
         {{#each fields}}
-        <span class="registration-form__items" onfocusout="{{ onFocusOut }}">
-            <label for="password">{{label}}</label>
-            {{{Field  class=../class  ref="field" label=this.label  }}}
-        </span>
+
+            {{{Field
+                    error=this.error
+                    onChange=this.onChange
+                    onFocusIn=this.onFocusIn
+                    onFocusOut=this.onFocusOut
+                    class=../class
+                    label=this.label
+                    ref=this.ref
+            }}}
         {{/each}}
 
-        {{#each buttons}}
-            {{{Button  class=this.class  ref="authBtn" label=this.label    type=../type onClick=../onBtnClick}}}
-        {{/each}}
-
+<!--        {{#each buttons}}-->
+<!--            {{{Button  class=this.class  ref="authBtn" label=this.label    type=../type onClick=../onBtnClick}}}-->
+<!--        {{/each}}-->
+        {{{Button
+                onClick=this.onSubmit
+                class="first-button"
+                ref="submitReg"
+                label="Зарегистрироваться"
+                type="submit"
+        }}}
+        {{{Button
+                onClick=this.onBtnClick
+                class="second-button"
+                ref="signUp"
+                label="Войти"
+                type="button"
+        }}}
 
     </form>
 

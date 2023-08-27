@@ -1,10 +1,8 @@
 <main class="auth">
     {{#Form onSubmit=form.onSubmit ref="form"}}
-<!--    <span class="registration-form__items">-->
         {{#each fields}}
 
                     {{{Field
-                            error=this.error
                             onChange=this.onChange
                             onFocusIn=this.onFocusIn
                             onFocusOut=this.onFocusOut
@@ -13,10 +11,19 @@
                             ref=this.ref
                     }}}
         {{/each}}
-<!--    </span>-->
-        {{#each buttons}}
-            {{{Button  onSubmit=../onSubmit class=this.class  ref="authBtn" label=this.label    type=../type
-                       onClick=../onBtnClick}}}
-        {{/each}}
+            {{{Button
+                    onClick=this.onSubmit
+                    class="first-button"
+                    ref="submitBtn"
+                    label="Авторизоваться"
+                    type="submit"
+            }}}
+            {{{Button
+                    onClick=this.onBtnClick
+                    class="second-button"
+                    ref="signUp"
+                    label="Нет аккаунта?"
+                    type="button"
+            }}}
     {{/Form}}
 </main>

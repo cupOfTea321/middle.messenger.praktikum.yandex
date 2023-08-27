@@ -1,10 +1,4 @@
-
-
 import {render} from "./utils/render";
-import {ChatPage} from "./pages/chat/chatPage";
-import {ProfilePage} from "./pages/profile/ProfilePage";
-import {ChangeData} from "./pages/profileChange/ChangeData";
-import {ErrorPage} from "./pages/error/ErrorPage";
 import {Button} from "./testComponents/Button";
 import Card from "./testComponents/Card";
 import {registerComponent} from "./utils/resgiterComponent";

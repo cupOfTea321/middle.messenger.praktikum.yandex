@@ -16,15 +16,8 @@ export class RegistrationPage extends Block<RegistrationPageProps> {
         super({
             type: 'button',
             ...props,
-            // myBtn: {
-            //     label: 'myBtn',
-            // },
 
             onBtnClick: () => {
-                console.log('ds')
-                this.refs.authBtn.setProps({
-                    label: 'Update'
-                })
                 render('auth');
             },
             buttons: [

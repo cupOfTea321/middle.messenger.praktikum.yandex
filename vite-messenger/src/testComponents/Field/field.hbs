@@ -2,4 +2,13 @@
 <!--    <label for="password">{{label}}</label>-->
 <!--    <input name="{{name}}" type="text">-->
 <!--</span>-->
-<input name="{{name}}" type="text">
+<span class="registration-form__items">
+    <label for="{{name}}">{{label}}</label>
+    <input name="{{name}}" type="text" value="{{ fieldValue }}" required>
+    {{#if req}}
+        <span>
+            {{error}}
+        </span>
+    {{/if}}
+</span>
+

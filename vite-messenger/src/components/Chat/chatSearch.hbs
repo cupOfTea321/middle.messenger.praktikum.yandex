@@ -1,0 +1,24 @@
+<div class="chat-search">
+<!--    <a  onClick="{{this.onClick}}">Профиль ></a>-->
+    {{{Button
+            onClick=this.onClickChat
+            label="Профиль >"
+            type="button"
+    }}}
+
+    <input class="chat-search__input" type="text" placeholder="Поиск"/>
+
+    <div class="chat-search__dialogs" id="chat-search__dialogs">
+        {{#each chats}}
+            <hr>
+            {{{ ChatItem
+                    name = this.name
+                    you = this.you
+                    message = this.message
+                    time = this.time
+                    newMessage = this.newMessage
+                    ava = this.ava
+            }}}
+        {{/each}}
+    </div>
+</div>

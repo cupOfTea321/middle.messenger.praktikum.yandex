@@ -1,0 +1,26 @@
+
+<div class="dialogs-item">
+    <div class="dialogs-item__left">
+        <img class="dialogs-item__ava" src="{{ ava }}" alt="photo">
+        <div>
+            <p class="bold">{{ name }}</p>
+            {{#if you}}
+                <p class="second">Вы: {{ message }}</p>
+            {{else}}
+                <p class="user__message">{{ message }}</p>
+            {{/if}}
+        </div>
+
+    </div>
+
+    <div>
+
+        <p class="dialogs-item__time">{{ time }}</p>
+        {{#if newMessage}}
+            <p class="dialogs-item__new">{{ newMessage }}</p>
+        {{else}}
+            <p></p>
+        {{/if}}
+
+    </div>
+</div>

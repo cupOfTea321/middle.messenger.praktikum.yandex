@@ -1,12 +1,28 @@
-const express = require('express');
+// const express = require('express');
+//
+// const PORT = 3000;
+// const app = express();
+// app.use(express.static(`${__dirname}/dist`));
+// // app.use(express.static(__dirname + '/dist'));
+//
+// app.listen(PORT, () => {
+//   // console.log(`Мой текст в логе после запуска ${PORT}!`);
+// });
+import express from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-const PORT = 3000;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const app = express();
-app.use(express.static(`${__dirname}/dist`));
-// app.use(express.static(__dirname + '/dist'));
+const PORT = 3000;
 
-app.listen(PORT, () => {
-  // console.log(`Мой текст в логе после запуска ${PORT}!`);
+app.use(express.static(__dirname + '/dist/'));
+
+
+app.listen(PORT, function () {
+    console.log(`Example app listening on port ${PORT}!`);
 });
 
 // const express = require('express')

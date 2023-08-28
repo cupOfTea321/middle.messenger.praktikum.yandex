@@ -10,7 +10,6 @@ import {ChangeItem, ProfileAside, ProfileItem, ProfileMain} from "./components/P
 
 registerComponent('Button', Button);
 registerComponent('Field', Field);
-registerComponent('Card', Card);
 registerComponent('Form', Form);
 registerComponent('ChatMain', ChatMain);
 registerComponent('ChatSearch', ChatSearch);

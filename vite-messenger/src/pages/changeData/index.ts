@@ -10,9 +10,8 @@ interface ChangeItems {
     name: string
 }
 export class ChangeData extends Block {
-    constructor(props) {
+    constructor() {
         super({
-            ...props,
             asideLine,
             profileImg,
             onClickProfile: () => {

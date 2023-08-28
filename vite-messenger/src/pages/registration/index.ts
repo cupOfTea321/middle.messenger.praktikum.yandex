@@ -6,8 +6,8 @@ import Field from "../../components/Field";
 interface RegistrationPageProps {
     title: string;
 }
-export class RegistrationPage extends Block<RegistrationPageProps> {
-    constructor(props) {
+export class RegistrationPage extends Block {
+    constructor() {
         const loginRegExp = /^(?!^\d+$)[a-zA-Z0-9_-]{3,20}$/
         const emailRegExp = /^[\w-]+@[a-zA-Z]+\.[a-zA-Z]+$/
         const nameRegExp = /^[A-ZА-ЯЁ][a-zA-ZА-ЯЁа-яё]*$/
@@ -26,7 +26,6 @@ export class RegistrationPage extends Block<RegistrationPageProps> {
 
         super({
             type: 'button',
-            ...props,
             onSubmit: (e: MouseEvent) => {
                 e.preventDefault();
                 let fieldsName = this.props.fields;

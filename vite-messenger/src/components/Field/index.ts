@@ -9,6 +9,7 @@ interface FieldProps {
     onFocusOut?: () => void;
     onBlur?: () => void;
     onFocusIn?: () => void;
+    value: string;
     // req?: boolean,
     events: {
         click: () => void;

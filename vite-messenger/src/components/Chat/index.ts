@@ -11,9 +11,8 @@ import pointsIcon from "../../../assets/pointsIcon.png";
 import {render} from "../../utils/render";
 
 export class ChatMain extends Block {
-    constructor(props) {
+    constructor() {
         super({
-            ...props,
             ava: avatar,
             camera,
             sawIcon,
@@ -29,13 +28,13 @@ export class ChatMain extends Block {
 }
 
 export class ChatSearch extends Block {
-    constructor(props) {
+    constructor() {
         super({
 
-                ...props,
-            events: {
-                click: props.onClick
-            },
+            //     ...props,
+            // events: {
+            //     click: props.onClick
+            // },
                 onClickChat: () => {
                     render('profile')
                     console.log('onClick')

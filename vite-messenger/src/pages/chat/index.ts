@@ -5,7 +5,7 @@ interface ChatPageProps {
     title: string;
 }
 
-export class ChatPage extends Block<ChatPageProps> {
+export class ChatPage extends Block {
     render() {
         return this.compile(template, this.props);
     }

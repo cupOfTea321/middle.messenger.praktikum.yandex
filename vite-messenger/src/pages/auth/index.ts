@@ -7,20 +7,19 @@ interface AuthPageProps {
     title: string;
 }
 
-export class AuthPage extends Block<AuthPageProps> {
+export class AuthPage extends Block {
 
-    constructor(props) {
+    constructor() {
         const loginRegExp = /^(?!^\d+$)[a-zA-Z0-9_-]{3,20}$/
         const passRegExp = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,40}$/
 
-        let myValue = {
+        let myValue:Record<string, string> = {
             login: '',
             pass: '',
         }
         super({
 
-                ...props,
-                onBtnClick: (e) => {
+                onBtnClick: () => {
                     render('reg');
                 },
                 onSubmit: (e: MouseEvent) => {
@@ -68,7 +67,7 @@ export class AuthPage extends Block<AuthPageProps> {
                         name: 'password',
                         label: 'Пароль',
                         ref: 'authPass',
-                        onChange: (e) => {
+                        onChange: (e: FocusEvent) => {
                             const target = e.target as HTMLInputElement;
                             myValue.pass = target.value
                         },

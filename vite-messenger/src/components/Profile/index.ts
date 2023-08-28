@@ -8,9 +8,8 @@ import Block from "../../utils/Block";
  import profileImg from "../../../assets/profileImg.png"
 import {render} from "../../utils/render";
 export  class ProfileAside extends Block {
-    constructor(props) {
+    constructor() {
         super({
-            ...props,
             asideLine,
             onBackClick: () => {
                 render('chat')
@@ -22,10 +21,10 @@ export  class ProfileAside extends Block {
     }
 }
 export  class ProfileMain extends Block {
-    constructor(props) {
+    constructor() {
         super({
-            ...props,
             profileImg,
+
             onClickChange: () => {
                 render('change')
             },
@@ -45,8 +44,8 @@ export  class ProfileMain extends Block {
 export  class ProfileItem extends Block {
     constructor(props) {
         super({
-            ...props,
             profileImg,
+            ...props
         })
     }
     render() {
@@ -56,8 +55,8 @@ export  class ProfileItem extends Block {
 export  class ChangeItem extends Block {
     constructor(props) {
         super({
-            ...props,
             profileImg,
+            ...props
         })
     }
     render() {

@@ -123,6 +123,7 @@ abstract class Block<Props extends Record<string, any> = unknown> {
     const newElement = fragment.firstElementChild as HTMLElement;
 
     if (this._element) {
+      this._removeEvents();
       this._element.replaceWith(newElement);
     }
 
@@ -154,7 +155,16 @@ abstract class Block<Props extends Record<string, any> = unknown> {
   getContent() {
     return this.element;
   }
+  private _removeEvents() {
+    const { events } = this.props as Props;
 
+    if (!events || !this._element) {
+      return;
+    }
+    Object.entries(events as Record<string, () => void>).forEach(([event, listener]) => {
+      this._element!.removeEventListener(event, listener);
+    });
+  }
   _makePropsProxy(props: any) {
     // Ещё один способ передачи this, но он больше не применяется с приходом ES6+
     const self = this;

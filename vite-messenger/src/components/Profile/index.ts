@@ -7,6 +7,9 @@ import Block from "../../utils/Block";
  import asideLine from "../../../assets/asideLine.png"
  import profileImg from "../../../assets/profileImg.png"
 import {render} from "../../utils/render";
+interface BlockInterface {
+    setProps(props: any): void;
+}
 export  class ProfileAside extends Block {
     constructor() {
         super({
@@ -56,8 +59,27 @@ export  class ChangeItem extends Block {
     constructor(props) {
         super({
             profileImg,
-            ...props
+            req: false,
+            ...props,
+            // fieldValue: props.value || '',
+            events: {
+                focusout:  props.onFocusOut,
+            }
         })
+    }
+    checkMatches(val:string, ref: BlockInterface, reg: any, mes:string) {
+        if (!reg.test(val)) {
+            ref.setProps({
+                fieldValue: val,
+                error: mes,
+                req: true,
+            })
+        } else {
+            ref.setProps({
+                fieldValue: val,
+                req: false
+            })
+        }
     }
     render() {
         return this.compile(template4, this.props);

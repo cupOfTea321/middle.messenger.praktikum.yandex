@@ -2,7 +2,7 @@ import {EventBus} from "./EventBus";
 import {nanoid} from 'nanoid';
 
 // Нельзя создавать экземпляр данного класса
-class Block {
+abstract class Block<Props extends Record<string, any> = unknown> {
   static EVENTS = {
     INIT: "init",
     FLOW_CDM: "flow:component-did-mount",

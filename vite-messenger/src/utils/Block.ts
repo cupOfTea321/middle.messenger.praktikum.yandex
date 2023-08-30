@@ -11,7 +11,7 @@ abstract class Block<Props extends Record<string, any> = unknown> {
   };
 
   public id = nanoid(6);
-  protected props: any;
+  protected props: Props;
   protected refs: Record<string, Block> = {};
   public children: Record<string, Block>;
   private eventBus: () => EventBus;

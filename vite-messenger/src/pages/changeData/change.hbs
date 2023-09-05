@@ -1,0 +1,48 @@
+<div class="profile">
+    <div class="profile-aside">
+        <a href="/">
+            <img src="{{asideLine}}" alt="">
+        </a>
+
+    </div>
+
+    <div class="profile-main">
+        <div class="profile-main__img">
+
+            <img name="avatar" src="{{profileImg}}" alt="">
+        </div>
+
+        <form class="profile-data">
+            {{#each fields}}
+                {{{ChangeItem
+                        first=this.first
+                        second=this.second
+                        name=this.name
+                        onFocusOut=this.onFocusOut
+                        ref=this.ref
+                        fieldValue=this.second
+                }}}
+
+                <hr>
+            {{/each}}
+            <div class="profile-data__row profile-data__last">
+                <p class="bold" >Телефон</p>
+                <input name="phone" class="second" value="+7 (909) 967 30 30" />
+
+            </div>
+            <div>
+                {{{Button
+                        onClick=this.onClickProfile
+                        label="Сохранить"
+                        type="button"
+                        class="first-button"
+                }}}
+            </div>
+
+        </form>
+
+
+
+
+    </div>
+</div>

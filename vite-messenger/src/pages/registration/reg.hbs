@@ -1,0 +1,36 @@
+<main class="login">
+    <form class="form" id="reg__form">
+        <h1>
+            Регистрация
+        </h1>
+        {{#each fields}}
+
+            {{{Field
+                    error=this.error
+                    onChange=this.onChange
+                    onFocusIn=this.onFocusIn
+                    onFocusOut=this.onFocusOut
+                    class=../class
+                    label=this.label
+                    ref=this.ref
+            }}}
+        {{/each}}
+
+        {{{Button
+                onClick=this.onSubmit
+                class="first-button"
+                ref="submitReg"
+                label="Зарегистрироваться"
+                type="submit"
+        }}}
+        {{{Button
+                onClick=this.onBtnClick
+                class="second-button"
+                ref="signUp"
+                label="Войти"
+                type="button"
+        }}}
+
+    </form>
+
+</main>

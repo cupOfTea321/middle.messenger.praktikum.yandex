@@ -1,0 +1,23 @@
+{
+  "hash": "af8a85fb",
+  "browserHash": "bae4bd3f",
+  "optimized": {
+    "handlebars": {
+      "src": "../../vite-messenger/node_modules/handlebars/dist/cjs/handlebars.js",
+      "file": "handlebars.js",
+      "fileHash": "4b8ea8cc",
+      "needsInterop": true
+    },
+    "nanoid": {
+      "src": "../../vite-messenger/node_modules/nanoid/index.browser.js",
+      "file": "nanoid.js",
+      "fileHash": "aec199f3",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-76J2PTFD": {
+      "file": "chunk-76J2PTFD.js"
+    }
+  }
+}

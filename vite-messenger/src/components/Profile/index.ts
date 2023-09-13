@@ -42,6 +42,7 @@ export  class ProfileMain extends Block {
                 {ref: "nameRef", tagName: "first_name", first: 'Имя', second: 'Иван'},
                 {ref: "nameSecRef", tagName: "second_name", first: 'Фамилия', second: 'Иванов'},
                 {ref: "nameChatRef",tagName: "display_name", first: 'Имя в чате', second: 'Иван'},
+                {ref: "phoneRef", tagName: "phone", first: 'Телефон', second: '+7 (999) 999 99 99', class: 'lastField'},
             ]
         });
         (this.props.fields.map((item)=>{

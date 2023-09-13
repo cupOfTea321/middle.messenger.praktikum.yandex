@@ -75,6 +75,17 @@ export class ChangeData extends Block {
                         target && (this.refs.chatName as Field).checkMatches(target.value, this.refs.chatName, nameRegExp, 'введите корректное имя');
                     },
                 },
+                {
+                    first: 'Телефон',
+                    second: '+7 (999) 999 99 99',
+                    name: 'phone',
+                    class: 'lastField',
+                    ref: 'phoneRef',
+                    onFocusOut: (e: FocusEvent) => {
+                        const target = e.target as HTMLInputElement;
+                        target && (this.refs.chatName as Field).checkMatches(target.value, this.refs.chatName, nameRegExp, 'введите корректное имя');
+                    },
+                },
             ],
         });
 

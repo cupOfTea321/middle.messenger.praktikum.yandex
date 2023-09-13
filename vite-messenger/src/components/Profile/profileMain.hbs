@@ -17,7 +17,7 @@
             {{{ProfileItem
                     first=this.first
                     second=this.second
-
+                    ref=this.ref
             }}}
             <hr>
         {{/each}}
@@ -37,14 +37,21 @@
 <!--            </a>-->
 <!--                -->
 <!--        </button>-->
-        {{{Button
+        {{{Link
                 onClick=this.onClickChange
                 label="Изменить данные"
                 type="button"
+                to="/settings"
         }}}
         <hr>
         <button>Изменить пароль</button>
         <hr>
-        <button class="profile-main__buttons-exit">Выйти</button>
+
+        {{{Button
+                onClick=logout
+                label="Выйти"
+                class="profile-main__buttons-exit"
+                type="button"
+        }}}
     </div>
 </div>

@@ -1,4 +1,4 @@
-import { set } from './helpers';
+import { set } from '../helpers/helpers';
 import { EventBus } from './EventBus';
 import Block from './Block';
 import { User } from '../api/AuthAPI';

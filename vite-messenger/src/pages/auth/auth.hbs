@@ -7,6 +7,7 @@
                             onFocusIn=this.onFocusIn
                             onFocusOut=this.onFocusOut
                             class=../class
+                            name=this.name
                             label=this.label
                             ref=this.ref
                     }}}
@@ -18,12 +19,12 @@
                     label="Авторизоваться"
                     type="submit"
             }}}
-            {{{Button
-                    onClick=this.onBtnClick
+            {{{Link
                     class="second-button"
                     ref="signUp"
                     label="Нет аккаунта?"
                     type="button"
+                    to="/sign-up"
             }}}
     {{/Form}}
 </main>

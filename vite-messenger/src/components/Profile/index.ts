@@ -7,6 +7,8 @@ import Block from "../../utils/Block";
  import asideLine from "../../../assets/asideLine.png"
  import profileImg from "../../../assets/profileImg.png"
 import {render} from "../../utils/render";
+import AuthController from "../../controllers/AuthController";
+import store from "../../utils/Store";
 interface BlockInterface {
     setProps(props: any): void;
 }
@@ -27,18 +29,30 @@ export  class ProfileMain extends Block {
     constructor() {
         super({
             profileImg,
-
+            logout: ()=> {
+                console.log('onExit')
+                AuthController.logout();
+            },
             onClickChange: () => {
                 render('change')
             },
             fields: [
-                {first: 'Почта', second: 'pochta@yandex.ru'},
-                {first: 'Логин', second: 'ivanivanov'},
-                {first: 'Имя', second: 'Иван'},
-                {first: 'Фамилия', second: 'Иванов'},
-                {first: 'Имя в чате', second: 'Иван'},
+                {ref: "mailRef", tagName: "email", first: 'Почта', second: 'pochta@yandex.ru'},
+                {ref: "loginRef", tagName: "login", first: 'Логин', second: 'ivanivanov'},
+                {ref: "nameRef", tagName: "first_name", first: 'Имя', second: 'Иван'},
+                {ref: "nameSecRef", tagName: "second_name", first: 'Фамилия', second: 'Иванов'},
+                {ref: "nameChatRef",tagName: "display_name", first: 'Имя в чате', second: 'Иван'},
             ]
-        })
+        });
+        (this.props.fields.map((item)=>{
+            const tagName = item.tagName;
+
+            if (store.getState().user?.hasOwnProperty(tagName)) {
+                console.log(this)
+                this.refs[item.ref].setProps({ second: store.getState()?.user[tagName] });
+            }
+        }))
+        // this.refs.avatarRef?.setProps({profileName: store.getState().user.first_name })
     }
     render() {
         return this.compile(template2, this.props);

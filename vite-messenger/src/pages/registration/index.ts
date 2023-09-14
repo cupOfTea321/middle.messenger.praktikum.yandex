@@ -24,6 +24,7 @@ export class RegistrationPage extends Block {
             phone: '',
             password: '',
             password2: '',
+            display_name: ''
         }
 
         super({
@@ -47,7 +48,7 @@ export class RegistrationPage extends Block {
                 if (hasErrors) {
                     return;
                 }
-
+                myValue.display_name = myValue.first_name + " " + myValue.second_name
                 AuthController.signup(myValue as SignupData);
             },
             onBtnClick: () => {

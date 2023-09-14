@@ -79,6 +79,7 @@ export  class ChangeItem extends Block {
             // fieldValue: props.value || '',
             events: {
                 focusout:  props.onFocusOut,
+                change: props.onChange,
             }
         })
     }

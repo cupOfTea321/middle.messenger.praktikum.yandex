@@ -20,8 +20,8 @@
                         name=this.name
                         onFocusOut=this.onFocusOut
                         ref=this.ref
-                        fieldValue=this.second
                         class=this.class
+                        onChange=this.onChange
                 }}}
 
 <!--                <hr>-->
@@ -32,12 +32,11 @@
 
 <!--            </div>-->
             <div>
-                {{{Link
-                        onClick=this.onClickProfile
+                {{{Button
+                        onClick=this.onSubmit
                         label="Сохранить"
                         type="button"
                         class="first-button "
-                        to="/profile"
                 }}}
             </div>
 

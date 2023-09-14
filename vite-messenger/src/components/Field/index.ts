@@ -40,15 +40,15 @@ export default class Field extends Block {
             }
         });
     }
-    checkMatches(val:string, ref: BlockInterface, reg: any, mes:string) {
+    checkMatches(val: string, reg: any, mes: string) {
         if (!reg.test(val)) {
-            ref.setProps({
+            this.setProps({
                 fieldValue: val,
-                error: mes,
+                errorMessage: mes,
                 req: true,
             })
         } else {
-            ref.setProps({
+            this.setProps({
                 fieldValue: val,
                 req: false
             })

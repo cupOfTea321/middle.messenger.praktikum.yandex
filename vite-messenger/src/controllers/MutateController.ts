@@ -12,11 +12,12 @@ export class MutateController {
     async mutate(data: UserData) {
         try {
             console.log(data)
+            router.go('/profile');
             await this.api.mutateUser(data);
 
             store.set('user', data);
 
-            router.go('/profile');
+
         } catch (e: any) {
             console.error(e.message);
         }

@@ -12,6 +12,7 @@ import {ChatPage} from "./pages/chat";
 import {ChangeData} from "./pages/changeData";
 import AuthController from "./controllers/AuthController";
 import {Link} from "./components/Link";
+import {ChangePass} from "./pages/changePass";
 
 
 registerComponent('Button', Button);
@@ -32,6 +33,7 @@ enum Routes {
     Profile = '/profile',
     Chat = '/messenger',
     ChangeInfo = '/settings',
+    ChangePass = '/pass-settings',
 
 }
 
@@ -43,6 +45,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         .use(Routes.Profile, ProfilePage)
         .use(Routes.Chat, ChatPage)
         .use(Routes.ChangeInfo, ChangeData)
+        .use(Routes.ChangePass, ChangePass)
 
     let isProtectedRoute = false;
 

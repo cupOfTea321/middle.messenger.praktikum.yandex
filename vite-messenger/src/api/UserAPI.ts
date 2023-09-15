@@ -1,4 +1,5 @@
 import BaseAPI from "./BaseAPI";
+import {User} from "../controllers/MutateController";
 
 export interface UserData {
     id?: number;
@@ -28,6 +29,9 @@ export class UserAPI extends BaseAPI{
     }
     mutatePassword(data: UserPassword) {
         return this.http.put('/password', data);
+    }
+    searchUser(data: object): Promise<User[]> {
+        return this.http.post('/search', data);
     }
 }
 export default new UserAPI();

@@ -1,23 +1,27 @@
 import API, {UserAPI, UserData, UserPassword} from "../api/UserAPI";
 import store from "../utils/Store";
 import router from "../utils/Router";
+import ChatsController from "./ChatsController";
 
-export class MutateController {
+export interface User {
+    login: string;
+    users: object;
+}
+
+export class UserController {
     private readonly api: UserAPI;
 
     constructor() {
         this.api = API;
     }
 
-    async mutate(data: UserData) {
+    async mutateUserInfo(data: UserData) {
         try {
-            console.log(data)
-            router.go('/profile');
             await this.api.mutateUser(data);
 
             store.set('user', data);
 
-
+            router.go('/profile');
         } catch (e: any) {
             console.error(e.message);
         }
@@ -42,6 +46,19 @@ export class MutateController {
             console.error(e);
         }
     }
+
+    async searchUser(data: object, idChat){
+        try {
+            const items:User[] = await this.api.searchUser(data);
+            const filteredUsers:User[] = items.filter((user) => user.login === data.login);
+
+            ChatsController.addUserToChat(idChat, filteredUsers)
+
+
+        } catch (e: any) {
+            console.error(e.message);
+        }
+    }
 }
 
-export default new MutateController();
+export default new UserController();

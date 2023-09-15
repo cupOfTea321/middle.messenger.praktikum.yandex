@@ -44,12 +44,13 @@ export  class ProfileMain extends Block {
                 AuthController.logout();
             },
             avatarRef:"avatarRef",
+            avatarImg: '',
             uploadAvatar: (e)=>{
                 console.log('uploadAvatar')
                 const fileInput = e.target;
                 // const selectedFile = fileInput.files[0];
 
-                MutateController.mutateAvatar(fileInput);
+                MutateController.mutateAvatar(profileImg);
                 console.log(this.refs.avatarRef);
                 this.refs.avatarRef.setProps({avatarImg: `https://ya-praktikum.tech/api/v2/resources/${ava}` });
             },
@@ -79,6 +80,7 @@ export  class ProfileMain extends Block {
         return this.compile(template2, this.props);
     }
 }
+
 export  class ProfileItem extends Block {
     constructor(props) {
         super({

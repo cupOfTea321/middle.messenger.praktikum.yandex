@@ -9,6 +9,8 @@ import addIcon from "../../../assets/addIcon.png";
 import sandIcon from "../../../assets/sandIcon.png";
 import pointsIcon from "../../../assets/pointsIcon.png";
 import {render} from "../../utils/render";
+import ChatsController from "../../controllers/ChatsController";
+import {withStore} from "../../utils/Store";
 
 export class ChatMain extends Block {
     constructor() {
@@ -26,9 +28,15 @@ export class ChatMain extends Block {
         return this.compile(template, this.props);
     }
 }
+interface LoginValues {
+    login: string;
+}
+export class ChatSearchBase extends Block {
 
-export class ChatSearch extends Block {
-    constructor() {
+    constructor(props) {
+        let login: LoginValues={
+            login: '',
+        }
         super({
 
             //     ...props,
@@ -89,7 +97,34 @@ export class ChatSearch extends Block {
                         time: 'Пн',
                         newMessage: false
                     },
-                ]
+                ],
+            onSubmit: (e: MouseEvent)=>{
+                e.preventDefault();
+            },
+            searchUser:(e: FocusEvent)=>{
+                const target = e.target as HTMLInputElement;
+                login.login = target.value;
+            },
+            sendMessage: (e: FocusEvent) => {
+                const target = e.target as HTMLInputElement;
+                // val.message = target.value;
+            },
+            searchRef: "searchRef",
+            // settingImg: setting,
+            errMes: false,
+
+            ava: props.ava,
+            message: props.message,
+            selectChat: props.selectChat,
+            selectChatName: props.selectChatName,
+
+            chat: [
+                { messages: 'asd' },
+            ],
+            addUser:()=>{
+                console.log(login.login)
+                ChatsController.create(login.login);
+            },
             },
         );
     }
@@ -98,7 +133,24 @@ export class ChatSearch extends Block {
         return this.compile(template2, this.props);
     }
 }
-
+const withChat = withStore((state) => ({
+    selectChat: state.selectedChat,
+    chatName: state.selectedChat,
+    chats: state.chats?.map((item, index)=>{
+        return {
+            onChat:()=>{
+                // ChatsController.delete(item.id)
+                ChatsController.selectChat(item.id)
+                ChatsController.selectChatName(item.title)
+            },
+            ava: item.avatar ? `https://ya-praktikum.tech/api/v2/resources/${item.avatar}` : avatar,
+            name: item.title,
+            newMessage: item.unread_count,
+            message: item.last_message
+        }
+    })
+}))
+export const ChatSearch = withChat(ChatSearchBase);
 export class ChatItem extends Block {
     render() {
         return this.compile(template3, this.props);

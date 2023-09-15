@@ -14,10 +14,12 @@ import AuthController from "./controllers/AuthController";
 import {Link} from "./components/Link";
 import {ChangePass} from "./pages/changePass";
 import {ProfileAvatar} from "./components/ProfileAvatar";
+import {Input} from "./components/Input";
 
 
 registerComponent('Button', Button);
 registerComponent('Field', Field);
+registerComponent('Input', Input);
 registerComponent('Form', Form);
 registerComponent('Link', Link);
 registerComponent('ChatMain', ChatMain);

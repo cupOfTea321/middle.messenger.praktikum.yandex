@@ -13,6 +13,7 @@ import {ChangeData} from "./pages/changeData";
 import AuthController from "./controllers/AuthController";
 import {Link} from "./components/Link";
 import {ChangePass} from "./pages/changePass";
+import {ProfileAvatar} from "./components/ProfileAvatar";
 
 
 registerComponent('Button', Button);
@@ -25,6 +26,7 @@ registerComponent('ChatItem', ChatItem);
 registerComponent('ProfileAside', ProfileAside);
 registerComponent('ProfileMain', ProfileMain);
 registerComponent('ProfileItem', ProfileItem);
+registerComponent('ProfileAvatar', ProfileAvatar);
 registerComponent('ChangeItem', ChangeItem);
 
 enum Routes {

@@ -9,6 +9,7 @@ import Block from "../../utils/Block";
 import {render} from "../../utils/render";
 import AuthController from "../../controllers/AuthController";
 import store from "../../utils/Store";
+import MutateController from "../../controllers/MutateController";
 interface BlockInterface {
     setProps(props: any): void;
 }
@@ -17,9 +18,18 @@ export  class ProfileAside extends Block {
         super({
             asideLine,
             onBackClick: () => {
-                render('chat')
-            }
+                // render('messenger')
+            },
+            events: {
+                click: () => {
+                    this.navigate();
+                }
+            },
         })
+
+    }
+    navigate() {
+        this.props.router.go(this.props.to);
     }
     render() {
         return this.compile(template, this.props);
@@ -32,6 +42,16 @@ export  class ProfileMain extends Block {
             logout: ()=> {
                 console.log('onExit')
                 AuthController.logout();
+            },
+            avatarRef:"avatarRef",
+            uploadAvatar: (e)=>{
+                console.log('uploadAvatar')
+                const fileInput = e.target;
+                // const selectedFile = fileInput.files[0];
+
+                MutateController.mutateAvatar(fileInput);
+                console.log(this.refs.avatarRef);
+                this.refs.avatarRef.setProps({avatarImg: `https://ya-praktikum.tech/api/v2/resources/${ava}` });
             },
             onClickChange: () => {
                 render('change')

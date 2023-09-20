@@ -4,6 +4,7 @@
     position: relative;
 
 }
+
 .chat-search{
     display: flex;
     flex-direction: column;
@@ -61,11 +62,14 @@
 /*
     DIALOGS MAP
 */
-
+.dialogs-item--selected{
+    background: #3369F3;
+    color: white;
+}
 .dialogs-item{
     display: flex;
     align-items: center;
-    margin-top: 12px;
+    padding-top: 12px;
     font-size: 13px;
     justify-content: space-between;
     &__ava{

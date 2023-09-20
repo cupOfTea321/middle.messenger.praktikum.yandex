@@ -42,7 +42,6 @@ export function withStore<SP>(mapStateToProps: (state: State) => SP) {
       // private onStoreUpdate: () => void
       constructor(props: Omit<P, keyof SP>) {
         let previousState = mapStateToProps(store.getState());
-        console.log(store.getState())
         super({ ...(props as P), ...previousState });
         store.on(StoreEvents.Updated, () => {
           const stateProps = mapStateToProps(store.getState());

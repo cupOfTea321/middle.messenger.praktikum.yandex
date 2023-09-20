@@ -67,6 +67,7 @@ class ChatsController {
   }
 
   selectChat(id: number) {
+    console.log('selectChat')
     store.set('selectedChat', id);
   }
 

@@ -10,7 +10,7 @@ import sandIcon from "../../../assets/sandIcon.png";
 import pointsIcon from "../../../assets/pointsIcon.png";
 import {render} from "../../utils/render";
 import ChatsController from "../../controllers/ChatsController";
-import {withStore} from "../../utils/Store";
+import store, {withStore} from "../../utils/Store";
 import {Input} from "../Input";
 import {Button} from "../Button";
 import MessagesController, { Message as MessageInfo } from "../../controllers/MessagesController";
@@ -64,14 +64,7 @@ export class ChatMainBase extends Block {
                 console.log(this.props);
                 val.message = ''
             },
-            closeChat:() => {
-                const selectedChatId = props.selectedChat;
-                if (selectedChatId !== undefined) {
-                    ChatsController.delete(selectedChatId);
-                } else {
-                    console.error('selectedChatId is undefined');
-                }
-            },
+
             searchUser:(e: FocusEvent) => {
                 const target = e.target as HTMLInputElement;
                 valUser.login = target.value;
@@ -100,15 +93,18 @@ export class ChatMainBase extends Block {
     }
 }
 const withSelectedChatMessages = withStore(state => {
+    // console.log(state)
     const selectedChatId = state.selectedChat;
-    // const selectedChat = state.chats?.find(chat => chat.id === selectedChatId);
-    // const avatarImg = selectedChat ? selectedChat.avatar : undefined;
+    const selectedChat = state.chats?.find(chat => chat.id === selectedChatId);
+    console.log(selectedChat?.id)
+    const avatarImg = selectedChat ? selectedChat.avatar : undefined;
     if (!selectedChatId) {
         return {
             messages: [],
             selectedChat: undefined,
             selectedChatName: undefined,
             userId: state.user.id,
+
             click: () => {
                 console.log(state)
                 const input =this.children.input as Input;
@@ -127,7 +123,23 @@ const withSelectedChatMessages = withStore(state => {
         messages: messages || [],
         selectedChat: state.selectedChat,
         userId: state.user.id,
+        avatarImg: avatarImg ? `https://ya-praktikum.tech/api/v2/resources/${avatarImg}` : avatar,
         selectedChatName: state.selectedChatName,
+        isOpenPopup: state.isOpenPopup,
+        openPopup:()=>{
+            store.set("isOpenPopup", true)
+        },
+        closeChat:() => {
+            const selectedChatId = selectedChat?.id;
+            if (selectedChatId !== undefined) {
+                ChatsController.delete(selectedChatId);
+            } else {
+                console.error('selectedChatId is undefined');
+            }
+        },
+        closePopup:()=>{
+            store.set("isOpenPopup", false)
+        }
     };
 });
 

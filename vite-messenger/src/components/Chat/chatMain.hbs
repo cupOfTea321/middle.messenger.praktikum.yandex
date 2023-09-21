@@ -1,10 +1,21 @@
 <div class="chat-main">
     <div class="chat-main__user">
         <div>
-            <img src="{{ava}}" alt="avatar">
-            <p class="user__name">Вадим</p>
+            <img src="{{avatarImg}}" alt="avatar">
+            <p class="user__name">{{selectedChatName}}</p>
         </div>
-        <img class="chat-main__img" src="{{pointsIcon}}" alt="">
+        <div>
+            <div class='chat-main__user-modal'>
+                <!--            <div class="chat__wrap-download">-->
+                {{{ Input class="invisible" idInput="avatar_chat" accept="image/*" onChange=addAvatar name="avatar_chat" type="file" }}}
+                <label for="avatar_chat">Изменить аватар</label>
+                <!--            </div>-->
+                {{{Button type="button" onClick=openPopup label="список юзеров"}}}
+                {{{Button type="button" onClick=closeChat label="закрыть чат"}}}
+            </div>
+            <img class="chat-main__img" src="{{pointsIcon}}" alt="">
+        </div>
+
     </div>
     <hr>
 

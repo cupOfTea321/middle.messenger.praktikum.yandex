@@ -15,7 +15,8 @@ interface State {
   messages: Record<number, Message[]>;
   selectedChat?: number;
   selectedChatName?: string;
-  isMine: boolean
+  isMine: boolean;
+  isOpenPopup?: boolean;
 }
 
 export class Store extends EventBus {

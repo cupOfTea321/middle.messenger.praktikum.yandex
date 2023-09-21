@@ -15,6 +15,7 @@ import {Link} from "./components/Link";
 import {ChangePass} from "./pages/changePass";
 import {ProfileAvatar} from "./components/ProfileAvatar";
 import {Input} from "./components/Input";
+import {Message} from "./components/Message";
 
 
 registerComponent('Button', Button);
@@ -30,6 +31,7 @@ registerComponent('ProfileMain', ProfileMain);
 registerComponent('ProfileItem', ProfileItem);
 registerComponent('ProfileAvatar', ProfileAvatar);
 registerComponent('ChangeItem', ChangeItem);
+registerComponent('Message', Message);
 
 enum Routes {
     Index = '/',

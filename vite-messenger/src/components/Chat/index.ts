@@ -14,6 +14,9 @@ import {withStore} from "../../utils/Store";
 import {Input} from "../Input";
 import {Button} from "../Button";
 import MessagesController, { Message as MessageInfo } from "../../controllers/MessagesController";
+import {Message} from "../Message";
+import UserController from "../../controllers/MutateController";
+import {User} from "../../api/AuthAPI";
 
 interface MessengerProps {
     selectedChat: number | undefined;
@@ -23,6 +26,12 @@ interface MessengerProps {
 
 export class ChatMainBase extends Block {
     constructor(props) {
+        const val = {
+            message: '',
+        }
+        const valUser = {
+            login: '',
+        }
         super({
             ...props,
             ava: avatar,
@@ -31,32 +40,77 @@ export class ChatMainBase extends Block {
             sandIcon,
             addIcon,
             pointsIcon,
+            isMine: props.isMine,
+            componentDidUpdate(oldProps: MessengerProps, newProps: MessengerProps): boolean {
+                // this.children.messages = this.createMessages(newProps);
 
+                return true;
+            },
+            onChange: (e: FocusEvent) => {
+                const target = e.target as HTMLInputElement;
+                val.message = target.value;
+            },
+            sendMessage:(e: FocusEvent)=>{
+                e.preventDefault();
+                if(val.message.length === 0 ){
+                    this.props.errMes = true;
+                    console.log('пустое поле');
+                    return;
+                }
+                this.props.errMes = false;
+                // this.props.isMine = false
+                MessagesController.sendMessage(this.props.selectedChat!, val.message);
+
+                console.log(this.props);
+                val.message = ''
+            },
+            closeChat:() => {
+                const selectedChatId = props.selectedChat;
+                if (selectedChatId !== undefined) {
+                    ChatsController.delete(selectedChatId);
+                } else {
+                    console.error('selectedChatId is undefined');
+                }
+            },
+            searchUser:(e: FocusEvent) => {
+                const target = e.target as HTMLInputElement;
+                valUser.login = target.value;
+            },
+            addUser:()=>{
+                UserController.searchUser((valUser as User), props.selectedChat);
+            },
+            addAvatar:(e: Event)=>{
+                const fileInput = e.target as HTMLInputElement;
+                const files = fileInput.files;
+
+                if (files && files.length > 0) {
+                    const selectedFile = files[0];
+                    const chatId: number | undefined = props.selectedChat;
+
+                    ChatsController.addAvatar(chatId, selectedFile);
+                } else {
+                    console.error('Не выбран файл');
+                }
+            },
         });
     }
-    componentDidUpdate(oldProps: MessengerProps, newProps: MessengerProps): boolean {
-        this.children.messages = this.createMessages(newProps);
 
-        return true;
-    }
-    createMessages(props: MessengerProps) {
-        return props.messages.map(data => {
-            // return new Message({...data, isMine: props.userId === data.user_id });
-        })
-    }
     render() {
         return this.compile(template, this.props);
     }
 }
 const withSelectedChatMessages = withStore(state => {
     const selectedChatId = state.selectedChat;
-    console.log((state.messages || {})[selectedChatId])
+    // const selectedChat = state.chats?.find(chat => chat.id === selectedChatId);
+    // const avatarImg = selectedChat ? selectedChat.avatar : undefined;
     if (!selectedChatId) {
         return {
             messages: [],
             selectedChat: undefined,
+            selectedChatName: undefined,
             userId: state.user.id,
             click: () => {
+                console.log(state)
                 const input =this.children.input as Input;
                 const message = input.getValue();
 
@@ -66,11 +120,14 @@ const withSelectedChatMessages = withStore(state => {
             }
         };
     }
-
+    const messages = (state.messages || {})[selectedChatId].map((item)=>{
+        return {...item, isMine: state.user.id  === item.user_id}
+    })
     return {
-        messages: (state.messages || {})[selectedChatId] || [],
+        messages: messages || [],
         selectedChat: state.selectedChat,
-        userId: state.user.id
+        userId: state.user.id,
+        selectedChatName: state.selectedChatName,
     };
 });
 

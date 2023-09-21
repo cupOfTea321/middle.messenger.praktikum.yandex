@@ -14,6 +14,8 @@ interface State {
   chats: ChatInfo[];
   messages: Record<number, Message[]>;
   selectedChat?: number;
+  selectedChatName?: string;
+  isMine: boolean
 }
 
 export class Store extends EventBus {

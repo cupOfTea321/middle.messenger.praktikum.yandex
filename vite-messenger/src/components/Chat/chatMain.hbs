@@ -11,8 +11,10 @@
 <!--    <p class="chat-main__time">19 июня</p>-->
 {{#if selectedChat }}
     <div class="chat-messages">
-        {{#each messages}}
-            <div class="chat-messages__text">{{this.content}}</div>
+        {{#each messages }}
+            {{{ Message content=this.content isMine=this.isMine }}}
+
+<!--            <div class="chat-messages__text" >{{this.content}}</div>-->
         {{/each}}
 <!--        <div class="chat-messages__text">-->
 <!--            <p>-->
@@ -48,12 +50,12 @@
         <hr class="chat-footer__hr">
         <div class="chat-footer__wrapper">
             <img src="{{addIcon}}" alt="">
-            {{{Input}}}
+            {{{Input onChange=onChange}}}
 <!--            <input name="message" placeholder="Сообщение" type="text">-->
 <!--            {{#Button onClick=click}}-->
 <!--                <img src="{{sandIcon}}" alt="">-->
 <!--            {{/Button}}-->
-            {{{Button label="Отправить" onClick=this.click}}}
+            {{{Button label="Отправить" onClick=sendMessage}}}
 
         </div>
     </footer>

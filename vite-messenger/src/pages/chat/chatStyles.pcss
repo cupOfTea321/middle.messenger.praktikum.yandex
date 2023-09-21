@@ -142,7 +142,9 @@
     MESSAGES BLOCK
 */
 .chat-messages{
-    width: 40%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
     &__text{
         background-color: #F8F8F8;
         border-radius: 10px;
@@ -205,6 +207,14 @@
         align-items: center;
         justify-content: space-between;
         margin-top: 11px;
+        button{
+            color: white;
+            background: #3369F3;
+            border-radius: 20px;
+            padding: 8px 10px;
+            font-size: 16px;
+            border: none;
+        }
     }
     &__hr{
         width: 100%;
@@ -217,4 +227,10 @@
         padding: 10px 20px;
         border: none;
     }
+}
+.message__input{
+    color: red
+}
+.message__output{
+    color: #000;
 }

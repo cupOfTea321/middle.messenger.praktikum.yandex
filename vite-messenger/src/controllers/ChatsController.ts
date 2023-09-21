@@ -43,18 +43,17 @@ class ChatsController {
     return this.api.getToken(id);
   }
 
-  async addAvatar(id, avatar) {
+  async addAvatar(id:any, avatar:any) {
     try {
       const file: FormData = new FormData();
       file.append('avatar', avatar);
       file.append('chatId', id);
-
-      await this.api.addChatAvatar(file).then( data =>
-          {
-            let chatIndex = store.getState().chats.findIndex(chat => chat.id === id);
+      console.log(avatar)
+      await this.api.addChatAvatar(file).then( (data: any) => {
+            const chatIndex = store.getState().chats.findIndex((chat: any) => chat.id === id);
             const currentChats = store.getState().chats;
 
-            let updatedChat = { ...currentChats[chatIndex], avatar: data.avatar };
+            const updatedChat = { ...currentChats[chatIndex], avatar: data.avatar };
 
             currentChats[chatIndex] = updatedChat;
 

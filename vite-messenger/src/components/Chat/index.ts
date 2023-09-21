@@ -22,6 +22,7 @@ interface MessengerProps {
     selectedChat: number | undefined;
     messages: MessageInfo[];
     userId: number;
+    avatarImg: string,
 }
 
 export class ChatMainBase extends Block {
@@ -72,19 +73,7 @@ export class ChatMainBase extends Block {
             addUser:()=>{
                 UserController.searchUser((valUser as User), props.selectedChat);
             },
-            addAvatar:(e: Event)=>{
-                const fileInput = e.target as HTMLInputElement;
-                const files = fileInput.files;
 
-                if (files && files.length > 0) {
-                    const selectedFile = files[0];
-                    const chatId: number | undefined = props.selectedChat;
-
-                    ChatsController.addAvatar(chatId, selectedFile);
-                } else {
-                    console.error('Не выбран файл');
-                }
-            },
         });
     }
 
@@ -96,7 +85,6 @@ const withSelectedChatMessages = withStore(state => {
     // console.log(state)
     const selectedChatId = state.selectedChat;
     const selectedChat = state.chats?.find(chat => chat.id === selectedChatId);
-    console.log(selectedChat?.id)
     const avatarImg = selectedChat ? selectedChat.avatar : undefined;
     if (!selectedChatId) {
         return {
@@ -104,16 +92,15 @@ const withSelectedChatMessages = withStore(state => {
             selectedChat: undefined,
             selectedChatName: undefined,
             userId: state.user.id,
-
-            click: () => {
-                console.log(state)
-                const input =this.children.input as Input;
-                const message = input.getValue();
-
-                input.setValue('');
-
-                MessagesController.sendMessage(this.props.selectedChat!, message);
-            }
+            // click: () => {
+            //     console.log(state)
+            //     const input =this.children.input as Input;
+            //     const message = input.getValue();
+            //
+            //     input.setValue('');
+            //
+            //     MessagesController.sendMessage(this.props.selectedChat!, message);
+            // }
         };
     }
     const messages = (state.messages || {})[selectedChatId].map((item)=>{
@@ -123,7 +110,7 @@ const withSelectedChatMessages = withStore(state => {
         messages: messages || [],
         selectedChat: state.selectedChat,
         userId: state.user.id,
-        avatarImg: avatarImg ? `https://ya-praktikum.tech/api/v2/resources/${avatarImg}` : avatar,
+        ava: avatarImg ? `https://ya-praktikum.tech/api/v2/resources/${avatarImg}` : avatar,
         selectedChatName: state.selectedChatName,
         isOpenPopup: state.isOpenPopup,
         openPopup:()=>{
@@ -135,6 +122,19 @@ const withSelectedChatMessages = withStore(state => {
                 ChatsController.delete(selectedChatId);
             } else {
                 console.error('selectedChatId is undefined');
+            }
+        },
+        addAvatar:(e: Event)=>{
+            const fileInput = e.target as HTMLInputElement;
+            const files = fileInput.files;
+
+            if (files && files.length > 0) {
+                const selectedFile = files[0];
+                const chatId: number | undefined = selectedChat?.id;
+                console.log(selectedFile, ' ', chatId)
+                ChatsController.addAvatar(chatId, selectedFile);
+            } else {
+                console.error('Не выбран файл');
             }
         },
         closePopup:()=>{

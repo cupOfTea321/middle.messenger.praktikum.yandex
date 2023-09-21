@@ -58,7 +58,7 @@ export default class HTTPTransport {
       const xhr = new XMLHttpRequest();
       xhr.open(method, url);
 
-      xhr.onreadystatechange = (e) => {
+      xhr.onreadystatechange = () => {
 
         if (xhr.readyState === XMLHttpRequest.DONE) {
           if (xhr.status < 400) {
@@ -73,16 +73,16 @@ export default class HTTPTransport {
       xhr.onerror = () => reject({reason: 'network error'});
       xhr.ontimeout = () => reject({reason: 'timeout'});
 
-      xhr.setRequestHeader('Content-Type', 'application/json');
-
       xhr.withCredentials = true;
       xhr.responseType = 'json';
 
       if (method === Method.Get || !data) {
         xhr.send();
-      } else if(data instanceof FormData){
+      }else if(data instanceof FormData){
         xhr.send(data);
-      } else {
+      }
+      else {
+        xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(JSON.stringify(data));
       }
     });

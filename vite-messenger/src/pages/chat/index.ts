@@ -1,8 +1,6 @@
 import Block from '../../utils/Block';
 import template from "./chat.hbs";
 import ChatsController from "../../controllers/ChatsController";
-import {Messenger} from "../../components/Messenger";
-
 interface ChatPageProps {
     title: string;
 }

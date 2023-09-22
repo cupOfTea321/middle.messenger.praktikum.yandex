@@ -1,7 +1,7 @@
 Описание
 ---
 Приложение мессенджера, написанное на ets + scss. Собирается с помощью vite, запускается на express, задеплоено в netlify. Также в проекте используются шаблоны handlebars.
-
+Присутствует система регистрации, авторизации. Пользователь может изменять свои данные. Чаты реализованы с помощью протокола WebSocket, есть возможность создания чата. удаления и добавления туда участников
 
 Команды для запуска
 ---
@@ -16,7 +16,7 @@ https://www.figma.com/file/jF5fFFzgGOxQeB4CmKWTiE/Chat_external_link?type=design
 
 Ссылка на pull-request
 ---
-[#1](https://github.com/cupOfTea321/middle.messenger.praktikum.yandex/pull/5)
+[#1](https://github.com/cupOfTea321/middle.messenger.praktikum.yandex/pull/6)
 
 Ссылка на опубликованное приложение
 --- 

@@ -38,7 +38,6 @@ class ProfilePageBase extends Block {
         super({
 
         })
-        console.log(store.getState().user)
     }
 
 

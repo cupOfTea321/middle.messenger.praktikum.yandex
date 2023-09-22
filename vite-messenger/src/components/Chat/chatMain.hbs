@@ -14,12 +14,13 @@
     <div class="chat-main__user">
         <div>
             <img class="user__ava" src="{{ava}}" alt="avatar">
+
             <p class="user__name">{{selectedChatName}}</p>
         </div>
         <div>
-            <form action="" class="form__search chat-main__search">
+            <form  class="form__search chat-main__search" id="myForm" onsubmit="event.preventDefault();">
                 {{{Input onChange=searchUser ref="searchRef" idInput="search" name="search" type="text" placeholder="добавить юзера" required="true"}}}
-                {{{Button type="button" class="chat-main__search-btn" onClick=addUser label="добавить"}}}
+                {{{Button  type="button" class="chat-main__search-btn" onClick=addUser label="добавить"}}}
             </form>
             <div class='chat-main__user-modal'>
                 {{{ Input class="invisible" idInput="avatar_chat" accept="image/*" onChange=addAvatar name="avatar_chat" type="file" }}}

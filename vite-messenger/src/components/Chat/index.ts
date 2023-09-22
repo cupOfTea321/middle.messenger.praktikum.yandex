@@ -67,7 +67,6 @@ export class ChatMainBase extends Block {
                 // this.props.isMine = false
                 MessagesController.sendMessage(this.props.selectedChat!, val.message);
 
-                console.log(this.props);
                 val.message = ''
             },
 
@@ -147,7 +146,6 @@ const withSelectedChatMessages = withStore(state => {
             if (files && files.length > 0) {
                 const selectedFile = files[0];
                 const chatId: number | undefined = selectedChat?.id;
-                console.log(selectedFile, ' ', chatId)
                 ChatsController.addAvatar(chatId, selectedFile);
             } else {
                 console.error('Не выбран файл');
@@ -197,8 +195,8 @@ export class ChatSearchBase extends Block {
                 chat: [
                     {messages: 'asd'},
                 ],
-                addUser: () => {
-                    console.log(login.login)
+                addUser: (e) => {
+                    e.preventDefault()
                     ChatsController.create(login.login);
                 },
                 label: 'Отправить',

@@ -63,7 +63,6 @@ class ChatsController {
       const file: FormData = new FormData();
       file.append('avatar', avatar);
       file.append('chatId', id);
-      console.log(avatar, ' ', id)
       await this.api.addChatAvatar(file).then( (data: any) => {
             const chatIndex = store.getState().chats.findIndex((chat: any) => chat.id === id);
             const currentChats = store.getState().chats;

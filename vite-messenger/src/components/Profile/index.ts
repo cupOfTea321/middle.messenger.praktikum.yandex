@@ -8,8 +8,9 @@ import Block from "../../utils/Block";
  import profileImg from "../../../assets/profileImg.png"
 import {render} from "../../utils/render";
 import AuthController from "../../controllers/AuthController";
-import store from "../../utils/Store";
+import store, {withStore} from "../../utils/Store";
 import MutateController from "../../controllers/MutateController";
+import avatar from "../../../assets/profileAva.png";
 interface BlockInterface {
     setProps(props: any): void;
 }
@@ -35,8 +36,8 @@ export  class ProfileAside extends Block {
         return this.compile(template, this.props);
     }
 }
-export  class ProfileMain extends Block {
-    constructor() {
+export  class ProfileMainBase extends Block {
+    constructor(props) {
         super({
             profileImg,
             logout: ()=> {
@@ -44,15 +45,18 @@ export  class ProfileMain extends Block {
                 AuthController.logout();
             },
             avatarRef:"avatarRef",
-            avatarImg: '',
-            uploadAvatar: (e)=>{
-                console.log('uploadAvatar')
-                const fileInput = e.target;
-                // const selectedFile = fileInput.files[0];
+            avatarImg: props.avatarImg,
+            profileName: props.first_name,
+            uploadAvatar: (e: Event)=>{
+                const fileInput = e.target as HTMLInputElement;
+                const files = fileInput.files;
+                if (files && files.length > 0) {
+                    const selectedFile = files[0];
 
-                MutateController.mutateAvatar(profileImg);
-                console.log(this.refs.avatarRef);
-                this.refs.avatarRef.setProps({avatarImg: `https://ya-praktikum.tech/api/v2/resources/${ava}` });
+                    MutateController.mutateAvatar(selectedFile);
+                } else {
+                    console.error('Не выбран файл');
+                }
             },
             onClickChange: () => {
                 render('change')
@@ -70,7 +74,6 @@ export  class ProfileMain extends Block {
             const tagName = item.tagName;
 
             if (store.getState().user?.hasOwnProperty(tagName)) {
-                console.log(this)
                 this.refs[item.ref].setProps({ second: store.getState()?.user[tagName] });
             }
         }))
@@ -80,7 +83,11 @@ export  class ProfileMain extends Block {
         return this.compile(template2, this.props);
     }
 }
-
+const withUser = withStore((state) => ({
+    ...state.user,
+    avatarImg: state.user.avatar ? `https://ya-praktikum.tech/api/v2/resources/${state.user.avatar}` : avatar,
+}))
+export const ProfileMain = withUser(ProfileMainBase);
 export  class ProfileItem extends Block {
     constructor(props) {
         super({

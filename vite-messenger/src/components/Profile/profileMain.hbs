@@ -3,8 +3,9 @@
 
 <!--        <img name="avatar" src="{{profileImg}}" alt="">-->
 <!--    </div>-->
-    {{{ ProfileAvatar ref=avatarRef onClick=uploadAvatar profileImg=this.profileImg }}}
-    <p class="user__name">Иван</p>
+    {{{ ProfileAvatar avatarImg=avatarImg  onClick=uploadAvatar }}}
+    {{{ Input idInput="avatar-input" ref=inputAvatarRef accept="image/*" onChange=uploadAvatar name="avatar" type="file" }}}
+    <p class="user__name">{{profileName}}</p>
 
     <div class="profile-data">
         <!--        ${profileItems.map(item => (`-->

@@ -28,11 +28,18 @@ export class UserController {
         }
     }
     async mutateAvatar(data: any) {
+        console.log('mutateAvatar')
         try {
             const file: FormData = new FormData();
             file.append('avatar', data);
 
-            await this.api.mutateAvatar(file);
+            await this.api.mutateAvatar(file).then( (item: any) => {
+                if(item.avatar){
+                    const changedAvatar = {avatar: item.avatar};
+
+                    store.set('user', changedAvatar);
+                }
+            });
         } catch (e: any) {
             console.error(e);
         }

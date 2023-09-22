@@ -16,6 +16,8 @@ import {ChangePass} from "./pages/changePass";
 import {ProfileAvatar} from "./components/ProfileAvatar";
 import {Input} from "./components/Input";
 import {Message} from "./components/Message";
+import {PopupWrap} from "./components/PopupWrap";
+import {ChatUserItem} from "./components/ChatUserItem";
 
 
 registerComponent('Button', Button);
@@ -32,6 +34,8 @@ registerComponent('ProfileItem', ProfileItem);
 registerComponent('ProfileAvatar', ProfileAvatar);
 registerComponent('ChangeItem', ChangeItem);
 registerComponent('Message', Message);
+registerComponent('PopupWrap', PopupWrap);
+registerComponent('ChatUserItem', ChatUserItem);
 
 enum Routes {
     Index = '/',

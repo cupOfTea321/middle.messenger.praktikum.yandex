@@ -2,11 +2,12 @@ import API, {UserAPI, UserData, UserPassword} from "../api/UserAPI";
 import store from "../utils/Store";
 import router from "../utils/Router";
 import ChatsController from "./ChatsController";
+import {User} from "../api/AuthAPI";
 
-export interface User {
-    login: string;
-    users: object;
-}
+// export interface User {
+//     login: string;
+//     users: object;
+// }
 
 export class UserController {
     private readonly api: UserAPI;
@@ -47,14 +48,14 @@ export class UserController {
         }
     }
 
-    async searchUser(data: object, idChat){
+    async searchUser(data: User, idChat: any){
         try {
+            console.log(data, ' ', idChat)
             const items:User[] = await this.api.searchUser(data);
-            const filteredUsers:User[] = items.filter((user) => user.login === data.login);
+            const filteredUsers:User[] = items.filter((user: User) => user.login === data.login);
+            const idUser = filteredUsers[0].id;
 
-            ChatsController.addUserToChat(idChat, filteredUsers)
-
-
+            await ChatsController.addUserToChat(idChat.id, idUser);
         } catch (e: any) {
             console.error(e.message);
         }

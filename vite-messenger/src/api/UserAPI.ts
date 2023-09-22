@@ -1,5 +1,5 @@
 import BaseAPI from "./BaseAPI";
-import {User} from "../controllers/MutateController";
+import {User} from "./AuthAPI";
 
 export interface UserData {
     id?: number;

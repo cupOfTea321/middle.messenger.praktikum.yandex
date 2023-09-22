@@ -20,18 +20,22 @@ import {User} from "../../api/AuthAPI";
 
 interface MessengerProps {
     selectedChat: number | undefined;
+    selectedChatName: string | undefined;
     messages: MessageInfo[];
     userId: number;
+    selectChatName: string,
     avatarImg: string,
+    users: object[],
+    isMine: boolean;
+    events: {
+        click: () => void
+    }
 }
 
 export class ChatMainBase extends Block {
     constructor(props) {
         const val = {
             message: '',
-        }
-        const valUser = {
-            login: '',
         }
         super({
             ...props,
@@ -42,6 +46,7 @@ export class ChatMainBase extends Block {
             addIcon,
             pointsIcon,
             isMine: props.isMine,
+            popupRef: "popupRef",
             componentDidUpdate(oldProps: MessengerProps, newProps: MessengerProps): boolean {
                 // this.children.messages = this.createMessages(newProps);
 
@@ -66,13 +71,8 @@ export class ChatMainBase extends Block {
                 val.message = ''
             },
 
-            searchUser:(e: FocusEvent) => {
-                const target = e.target as HTMLInputElement;
-                valUser.login = target.value;
-            },
-            addUser:()=>{
-                UserController.searchUser((valUser as User), props.selectedChat);
-            },
+
+
 
         });
     }
@@ -83,6 +83,10 @@ export class ChatMainBase extends Block {
 }
 const withSelectedChatMessages = withStore(state => {
     // console.log(state)
+
+    const valUser = {
+        login: '',
+    }
     const selectedChatId = state.selectedChat;
     const selectedChat = state.chats?.find(chat => chat.id === selectedChatId);
     const avatarImg = selectedChat ? selectedChat.avatar : undefined;
@@ -92,17 +96,16 @@ const withSelectedChatMessages = withStore(state => {
             selectedChat: undefined,
             selectedChatName: undefined,
             userId: state.user.id,
-            // click: () => {
-            //     console.log(state)
-            //     const input =this.children.input as Input;
-            //     const message = input.getValue();
-            //
-            //     input.setValue('');
-            //
-            //     MessagesController.sendMessage(this.props.selectedChat!, message);
-            // }
         };
     }
+    const usersWithLog = (selectedChat ? selectedChat.users : null) || [];
+    usersWithLog.forEach(user => {
+        user.deleteUser = () => {
+            if (state.selectedChat !== undefined) {
+                ChatsController.deleteUser(state.selectedChat, user.id);
+            }
+        };
+    });
     const messages = (state.messages || {})[selectedChatId].map((item)=>{
         return {...item, isMine: state.user.id  === item.user_id}
     })
@@ -113,8 +116,13 @@ const withSelectedChatMessages = withStore(state => {
         ava: avatarImg ? `https://ya-praktikum.tech/api/v2/resources/${avatarImg}` : avatar,
         selectedChatName: state.selectedChatName,
         isOpenPopup: state.isOpenPopup,
+        users: usersWithLog,
         openPopup:()=>{
+            console.log('openPopup')
             store.set("isOpenPopup", true)
+        },
+        closePopup:()=>{
+            store.set("isOpenPopup", false)
         },
         closeChat:() => {
             const selectedChatId = selectedChat?.id;
@@ -123,6 +131,14 @@ const withSelectedChatMessages = withStore(state => {
             } else {
                 console.error('selectedChatId is undefined');
             }
+        },
+        addUser:()=>{
+            console.log('addUser')
+            UserController.searchUser((valUser as User), selectedChat);
+        },
+        searchUser:(e: FocusEvent) => {
+            const target = e.target as HTMLInputElement;
+            valUser.login = target.value;
         },
         addAvatar:(e: Event)=>{
             const fileInput = e.target as HTMLInputElement;
@@ -137,9 +153,7 @@ const withSelectedChatMessages = withStore(state => {
                 console.error('Не выбран файл');
             }
         },
-        closePopup:()=>{
-            store.set("isOpenPopup", false)
-        }
+
     };
 });
 
@@ -216,6 +230,7 @@ const withChat = withStore((state) => ({
                 // ChatsController.delete(item.id)
                 ChatsController.selectChat(item.id)
                 ChatsController.selectChatName(item.title)
+                ChatsController.getChatUsers(item.id);
             },
             click: (target) => {
                 console.log(target)

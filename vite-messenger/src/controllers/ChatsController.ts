@@ -1,7 +1,6 @@
-import API, { ChatsAPI } from '../api/ChatsAPI';
+import API, {ChatsAPI} from '../api/ChatsAPI';
 import store from '../utils/Store';
 import MessagesController from './MessagesController';
-import {unregisterDecorator} from "handlebars";
 
 class ChatsController {
   private readonly api: ChatsAPI;
@@ -12,8 +11,8 @@ class ChatsController {
 
   async create(title: string) {
     await this.api.create(title);
-    console.log('create')
-    await this.fetchChats();
+
+    this.fetchChats();
   }
 
   async fetchChats() {
@@ -28,8 +27,24 @@ class ChatsController {
     store.set('chats', chats);
   }
 
-  addUserToChat(id: number, userId: number) {
-    this.api.addUsers(id, [userId]);
+  async addUserToChat(id: number, userId: number) {
+    try{
+      await this.api.addUsers(id, [userId]);
+
+      await this.getChatUsers(id);
+    }catch (e){
+      console.log(e)
+    }
+  }
+
+  async deleteUser(id: number, chatId: number) {
+    try{
+      await this.api.removeUsers(id, [chatId])
+
+      await this.getChatUsers(id);
+    }catch (e){
+      console.log(e)
+    }
   }
 
   async delete(id: number) {
@@ -48,7 +63,7 @@ class ChatsController {
       const file: FormData = new FormData();
       file.append('avatar', avatar);
       file.append('chatId', id);
-      console.log(avatar)
+      console.log(avatar, ' ', id)
       await this.api.addChatAvatar(file).then( (data: any) => {
             const chatIndex = store.getState().chats.findIndex((chat: any) => chat.id === id);
             const currentChats = store.getState().chats;
@@ -65,8 +80,25 @@ class ChatsController {
     }
   }
 
+  async getChatUsers(idChat: any){
+    try{
+      await this.api.getUsers(idChat)
+          .then((data)=>{
+            const chatIndex = store.getState().chats.findIndex((chat: any) => chat.id === idChat );
+            const currentChats = store.getState().chats;
+
+            const updatedChat = { ...currentChats[chatIndex], users: data };
+
+            currentChats[chatIndex] = updatedChat;
+
+            store.set('chats', currentChats)
+          });
+    }catch (e){
+      console.log(e)
+    }
+  }
+
   selectChat(id: number) {
-    console.log('selectChat')
     store.set('selectedChat', id);
   }
 
@@ -76,8 +108,5 @@ class ChatsController {
 }
 
 const controller = new ChatsController();
-
-// @ts-ignore
-window.chatsController = controller;
 
 export default controller;

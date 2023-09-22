@@ -18,6 +18,7 @@ import {Input} from "./components/Input";
 import {Message} from "./components/Message";
 import {PopupWrap} from "./components/PopupWrap";
 import {ChatUserItem} from "./components/ChatUserItem";
+import ChatsController from "./controllers/ChatsController";
 
 
 registerComponent('Button', Button);
@@ -57,7 +58,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         .use(Routes.ChangeInfo, ChangeData)
         .use(Routes.ChangePass, ChangePass)
 
-    let isProtectedRoute = false;
+    let isProtectedRoute = true;
 
     switch (window.location.pathname) {
         case Routes.Index:
@@ -68,12 +69,12 @@ window.addEventListener('DOMContentLoaded', async () => {
 
     try {
         await AuthController.fetchUser();
-
+        await ChatsController.fetchChats();
         Router.start();
 
-        // if (!isProtectedRoute) {
-        //     Router.go(Routes.Profile)
-        // }
+        if (!isProtectedRoute) {
+            Router.go(Routes.Profile)
+        }
     } catch (e) {
         Router.start();
 

@@ -112,16 +112,16 @@ export  class ChangeItem extends Block {
             }
         })
     }
-    checkMatches(val:string, ref: BlockInterface, reg: any, mes:string) {
+    checkMatches( val:string,   reg: any, mes:string) {
         if (!reg.test(val)) {
-            ref.setProps({
-                fieldValue: val,
+            this.setProps({
+                second: val,
                 error: mes,
                 req: true,
             })
         } else {
-            ref.setProps({
-                fieldValue: val,
+            this.setProps({
+                second: val,
                 req: false
             })
         }

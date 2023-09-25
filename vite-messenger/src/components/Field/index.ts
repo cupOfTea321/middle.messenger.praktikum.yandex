@@ -32,7 +32,6 @@ export default class Field extends Block {
             fieldValue: props.value || '',
             events: {
                 click: props.onClick,
-                // focusout:  () => {props.onFocusout()}
                 focusout:  props.onFocusOut,
                 focusin:  props.onFocusIn,
                 onblur:  props.onBlur,
@@ -43,13 +42,13 @@ export default class Field extends Block {
     checkMatches(val: string, reg: any, mes: string) {
         if (!reg.test(val)) {
             this.setProps({
-                fieldValue: val,
-                errorMessage: mes,
+                second: val,
+                error: mes,
                 req: true,
             })
         } else {
             this.setProps({
-                fieldValue: val,
+                second: val,
                 req: false
             })
         }

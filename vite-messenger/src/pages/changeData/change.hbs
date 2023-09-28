@@ -1,6 +1,6 @@
 <div class="profile">
     <div class="profile-aside">
-        <a href="/">
+        <a href="/messenger">
             <img src="{{asideLine}}" alt="">
         </a>
 
@@ -9,7 +9,7 @@
     <div class="profile-main">
         <div class="profile-main__img">
 
-            <img name="avatar" src="{{profileImg}}" alt="">
+            <img name="avatar" src="{{avatarImg}}" alt="">
         </div>
 
         <form class="profile-data">
@@ -20,22 +20,23 @@
                         name=this.name
                         onFocusOut=this.onFocusOut
                         ref=this.ref
-                        fieldValue=this.second
+                        class=this.class
+                        onChange=this.onChange
                 }}}
 
-                <hr>
+<!--                <hr>-->
             {{/each}}
-            <div class="profile-data__row profile-data__last">
-                <p class="bold" >Телефон</p>
-                <input name="phone" class="second" value="+7 (909) 967 30 30" />
+<!--            <div class="profile-data__row profile-data__last">-->
+<!--                <p class="bold" >Телефон</p>-->
+<!--                <input name="phone" class="second" value="+7 (909) 967 30 30" />-->
 
-            </div>
+<!--            </div>-->
             <div>
                 {{{Button
-                        onClick=this.onClickProfile
+                        onClick=this.onSubmit
                         label="Сохранить"
-                        type="button"
-                        class="first-button"
+                        type="submit"
+                        class="first-button "
                 }}}
             </div>
 

@@ -1,17 +1,33 @@
 <div class="chat-search">
 <!--    <a  onClick="{{this.onClick}}">Профиль ></a>-->
-    {{{Button
+    {{{Link
             onClick=this.onClickChat
             label="Профиль >"
             type="button"
+            to="/profile"
     }}}
+    <form action="" class="chat-search__form" onsubmit="event.preventDefault();">
+<!--        <input class="chat-search__form-input" type="text" placeholder="Поиск"/>-->
+        {{{Input
+                onChange=searchUser
+                ref="searchRef"
+                idInput="search"
+                name="search"
+                type="text"
+                placeholder="создать чат"
+                required="true"
+                class="chat-search__form-input"
+        }}}
 
-    <input class="chat-search__input" type="text" placeholder="Поиск"/>
-
+        {{{Button type="button" class="chat-search__form-btn" onClick=addUser label="создать"}}}
+    </form>
     <div class="chat-search__dialogs" id="chat-search__dialogs">
         {{#each chats}}
             <hr>
             {{{ ChatItem
+
+                    id=this.id
+                    onClick=this.onChat
                     name = this.name
                     you = this.you
                     message = this.message

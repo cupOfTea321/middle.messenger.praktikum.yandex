@@ -1,7 +1,7 @@
 
-<div class="profile-data__row" id="profile-data">
-    <label class="bold">{{first}}</label>
-    <input name="{{name}}" class="second"  value="{{ fieldValue }}" />
+<div class="profile-data__row {{class}}" id="profile-data">
+    <label class="bold" for="{{name}}">{{first}}</label>
+    <input type="text"   id="{{name}}" name="{{name}}" class="second"  value="{{second}}" required/>
     {{#if req}}
         <span class="error_message">
             {{error}}

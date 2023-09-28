@@ -4,7 +4,7 @@
 <!--</span>-->
 <span class="registration-form__items">
     <label for="{{name}}">{{label}}</label>
-    <input name="{{name}}" type="text" value="{{ fieldValue }}" required>
+    <input id="{{name}}" name="{{name}}" type="text" value="{{ fieldValue }}" required>
     {{#if req}}
         <span>
             {{error}}

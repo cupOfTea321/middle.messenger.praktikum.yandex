@@ -1,26 +1,41 @@
- import template from './button.hbs';
- import Block from "../../utils/Block";
+import template from './button.hbs';
+import Block from "../../utils/Block";
+import {withRouter} from "../../helpers/withRouter";
 
 interface ButtonProps {
-  label: string;
-  type?: 'submit' | 'button',
-  onClick?: () => void;
-  events: {
-    click: () => void;
-  };
+    to?: string;
+    label: string;
+    type?: 'submit' | 'button',
+    onClick?: () => void;
+    onSubmit?: () => void;
+    events: {
+        click: () => void;
+        submit: () => void;
+    };
 }
 
-export class Button extends Block {
-  constructor(props: ButtonProps) {
-    super({
-      ...props,
-      events: {
-        click: props.onClick
-      }
-    });
-  }
+class BaseButton extends Block {
+    constructor(props: ButtonProps) {
+        super({
+            ...props,
+            events: {
+                click: props.onClick,
+                submit: (e) => {
+                    e.preventDefault()
+                    // this.navigate();
+                    props.onSubmit
+                }
+            }
+        });
+    }
 
-  render() {
-    return this.compile(template, this.props);
-  }
+    navigate() {
+        this.props.router.go(this.props.to);
+    }
+
+    render() {
+        return this.compile(template, this.props);
+    }
 }
+
+export const Button = withRouter(BaseButton);

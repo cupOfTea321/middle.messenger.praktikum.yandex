@@ -20,18 +20,26 @@
     width: 100%;
     flex-direction: column;
     align-items: center;
+    &__img:hover{
+        background: #000000;
+        cursor: pointer;
+    }
     &__img{
-        background: #EFEFEF;
-        border-radius: 50%;
+            background: #EFEFEF;
+            border-radius: 50%;
         width: 130px;
         height: 130px;
         display: flex;
         align-items: center;
         justify-content: center;
         margin-bottom: 21px;
+        :hover{
+
+        }
         img{
-            width: 45px;
-            height: 45px;
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
         }
     }
     p{
@@ -42,7 +50,7 @@
         flex-direction: column;
         margin-top: 50px;
         width: 40%;
-        button{
+        button, span{
             border: none;
             color: var(--new);
             background: none;
@@ -75,20 +83,26 @@
         justify-content: space-between;
         width: 40%;
         margin: 10px auto;
+        border-bottom: 1px solid grey;
+        padding-bottom: 10px;
         input{
             border: none;
             text-align: right;
             font-size: 16px;
+
         }
         input:focus {
             outline: none;
         }
     }
+
+    &__last{
+        margin-bottom: 40px ;
+
+    }
     hr{
         width: 40%;
         margin: 0 auto;
-    }
-    button{
     }
 }
 .profile-button {
@@ -99,4 +113,8 @@
     background: var(--new);
     border: none;
     color: white;
+}
+.lastField{
+    margin-bottom: 40px;
+    border-bottom: none
 }

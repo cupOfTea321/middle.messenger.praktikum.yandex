@@ -2,6 +2,10 @@ import Block from '../../utils/Block';
 import template from "./auth.hbs";
 import {render} from "../../utils/render";
 import Field from "../../components/Field";
+import AuthController from "../../controllers/AuthController";
+import {SigninData} from "../../api/AuthAPI";
+import router from "../../utils/Router";
+import Router from "../../utils/Router";
 
 interface AuthPageProps {
     title: string;
@@ -15,38 +19,39 @@ export class AuthPage extends Block {
 
         let myValue:Record<string, string> = {
             login: '',
-            pass: '',
+            password: '',
         }
         super({
 
                 onBtnClick: () => {
                     render('reg');
+                    Router.go('/chat')
                 },
                 onSubmit: (e: MouseEvent) => {
                     e.preventDefault();
-                    let fieldsName = this.props.fields;
+
+                    const fieldsName = this.props.fields;
                     let hasErrors = false
 
-                    for (let i = 0; i < fieldsName.length; i++) {
-                        for (let key in myValue) {
-                            let nameRef = this.props.fields[i].ref;
-
-                            if (key === fieldsName[i].name && myValue[key].length === 0) {
-
-                                this.refs[nameRef].setProps({
-                                    error: 'пустое поле',
-                                    req: true,
-                                })
-
-                                hasErrors = true;
-                            }
+                    for(let i = 0;  i < fieldsName.length; i++ ){
+                        const nameRef = this.props.fields[i].ref;
+                        const fieldName = fieldsName[i].name;
+                        if (!myValue[fieldName]?.length) {
+                            this.refs[nameRef].setProps({
+                                error: 'пустое поле',
+                                req: true,
+                            });
+                            hasErrors = true;
                         }
                     }
                     if (hasErrors) {
                         return;
                     }
-                    console.log(myValue);
-                    render('chat')
+
+                    AuthController.signin(myValue as SigninData);
+
+
+                    // render('chat')
                 },
                 fields: [
                     {
@@ -69,7 +74,7 @@ export class AuthPage extends Block {
                         ref: 'authPass',
                         onChange: (e: FocusEvent) => {
                             const target = e.target as HTMLInputElement;
-                            myValue.pass = target.value
+                            myValue.password = target.value
                         },
                         onFocusOut: (e: FocusEvent) => {
                             const target = e.target as HTMLInputElement;

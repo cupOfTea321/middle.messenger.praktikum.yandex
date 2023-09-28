@@ -9,16 +9,70 @@ import addIcon from "../../../assets/addIcon.png";
 import sandIcon from "../../../assets/sandIcon.png";
 import pointsIcon from "../../../assets/pointsIcon.png";
 import {render} from "../../utils/render";
+import ChatsController from "../../controllers/ChatsController";
+import store, {withStore} from "../../utils/Store";
+import {Input} from "../Input";
+import {Button} from "../Button";
+import MessagesController, { Message as MessageInfo } from "../../controllers/MessagesController";
+import {Message} from "../Message";
+import UserController from "../../controllers/MutateController";
+import {User} from "../../api/AuthAPI";
 
-export class ChatMain extends Block {
-    constructor() {
+interface MessengerProps {
+    selectedChat: number | undefined;
+    selectedChatName: string | undefined;
+    messages: MessageInfo[];
+    userId: number;
+    selectChatName: string,
+    avatarImg: string,
+    users: object[],
+    isMine: boolean;
+    events: {
+        click: () => void
+    }
+}
+
+export class ChatMainBase extends Block {
+    constructor(props) {
+        const val = {
+            message: '',
+        }
         super({
+            ...props,
             ava: avatar,
             camera,
             sawIcon,
             sandIcon,
             addIcon,
-            pointsIcon
+            pointsIcon,
+            isMine: props.isMine,
+            popupRef: "popupRef",
+            componentDidUpdate(oldProps: MessengerProps, newProps: MessengerProps): boolean {
+                // this.children.messages = this.createMessages(newProps);
+
+                return true;
+            },
+            onChange: (e: FocusEvent) => {
+                const target = e.target as HTMLInputElement;
+                val.message = target.value;
+            },
+            sendMessage:(e: FocusEvent)=>{
+                e.preventDefault();
+                if(val.message.length === 0 ){
+                    this.props.errMes = true;
+                    console.log('пустое поле');
+                    return;
+                }
+                this.props.errMes = false;
+                // this.props.isMine = false
+                MessagesController.sendMessage(this.props.selectedChat!, val.message);
+
+                val.message = ''
+            },
+
+
+
+
         });
     }
 
@@ -26,81 +80,195 @@ export class ChatMain extends Block {
         return this.compile(template, this.props);
     }
 }
+const withSelectedChatMessages = withStore(state => {
+    // console.log(state)
 
-export class ChatSearch extends Block {
-    constructor() {
+    const valUser = {
+        login: '',
+    }
+    const selectedChatId = state.selectedChat;
+    const selectedChat = state.chats?.find(chat => chat.id === selectedChatId);
+    const avatarImg = selectedChat ? selectedChat.avatar : undefined;
+    if (!selectedChatId) {
+        return {
+            messages: [],
+            selectedChat: undefined,
+            selectedChatName: undefined,
+            userId: state.user.id,
+        };
+    }
+    const usersWithLog = (selectedChat ? selectedChat.users : null) || [];
+    usersWithLog.forEach(user => {
+        user.deleteUser = () => {
+            if (state.selectedChat !== undefined) {
+                ChatsController.deleteUser(state.selectedChat, user.id);
+            }
+        };
+    });
+    const messages = (state.messages || {})[selectedChatId].map((item)=>{
+        return {...item, isMine: state.user.id  === item.user_id}
+    })
+    return {
+        messages: messages || [],
+        selectedChat: state.selectedChat,
+        userId: state.user.id,
+        ava: avatarImg ? `https://ya-praktikum.tech/api/v2/resources/${avatarImg}` : avatar,
+        selectedChatName: state.selectedChatName,
+        isOpenPopup: state.isOpenPopup,
+        users: usersWithLog,
+        openPopup:()=>{
+            console.log('openPopup')
+            store.set("isOpenPopup", true)
+        },
+        closePopup:()=>{
+            store.set("isOpenPopup", false)
+        },
+        closeChat:() => {
+            const selectedChatId = selectedChat?.id;
+            if (selectedChatId !== undefined) {
+                ChatsController.delete(selectedChatId);
+            } else {
+                console.error('selectedChatId is undefined');
+            }
+        },
+        addUser:()=>{
+            console.log('addUser')
+            UserController.searchUser((valUser as User), selectedChat);
+        },
+        searchUser:(e: FocusEvent) => {
+            const target = e.target as HTMLInputElement;
+            valUser.login = target.value;
+        },
+        addAvatar:(e: Event)=>{
+            const fileInput = e.target as HTMLInputElement;
+            const files = fileInput.files;
+
+            if (files && files.length > 0) {
+                const selectedFile = files[0];
+                const chatId: number | undefined = selectedChat?.id;
+                ChatsController.addAvatar(chatId, selectedFile);
+            } else {
+                console.error('Не выбран файл');
+            }
+        },
+
+    };
+});
+
+export const ChatMain = withSelectedChatMessages(ChatMainBase);
+interface LoginValues {
+    login: string;
+}
+
+export class ChatSearchBase extends Block {
+
+    constructor(props) {
+
+        let login: LoginValues = {
+            login: '',
+        }
         super({
-
-            //     ...props,
-            // events: {
-            //     click: props.onClick
-            // },
                 onClickChat: () => {
                     render('profile')
                     console.log('onClick')
                 },
-                chats: [
-                    {
-                        ava: avatar,
-                        name: 'Андрей',
-                        you: false,
-                        message: 'Изображение',
-                        time: '10:49',
-                        newMessage: 2,
+                onSubmit: (e: MouseEvent) => {
+                    e.preventDefault();
+                },
+                searchUser: (e: FocusEvent) => {
+                    const target = e.target as HTMLInputElement;
+                    login.login = target.value;
+                },
+                sendMessage: (e: FocusEvent) => {
+                    const target = e.target as HTMLInputElement;
+                    // val.message = target.value;
+                },
+                searchRef: "searchRef",
+                // settingImg: setting,
+                errMes: false,
 
-                    },
-                    {
-                        ava: avatar,
-                        name: 'Киноклуб',
-                        you: true,
-                        message: 'стикер',
-                        time: '10:49',
-                        newMessage: false
-                    },
-                    {
-                        ava: avatar,
-                        name: 'Илья',
-                        you: false,
-                        message: 'Друзья, у меня для вас особенный выпуск новостей!',
-                        time: '15:12',
-                        newMessage: 4
-                    },
-                    {
-                        ava: avatar,
-                        name: 'Вадим',
-                        you: true,
-                        message: 'Круто!',
-                        time: 'Пт',
-                        newMessage: false
-                    },
-                    {
-                        ava: avatar,
-                        name: 'тет-а-теты',
-                        you: false,
-                        message: 'И Human Interface Guidelines и Material Design рекомендуют...',
-                        time: 'Ср',
-                        newMessage: false
-                    },
-                    {
-                        ava: avatar,
-                        name: '1, 2, 3',
-                        you: false,
-                        message: 'Миллионы россиян ежедневно проводят десятки часов свое...',
-                        time: 'Пн',
-                        newMessage: false
-                    },
-                ]
+                ava: props.ava,
+                message: props.message,
+                selectChat: props.selectChat,
+                selectChatName: props.selectChatName,
+
+                chat: [
+                    {messages: 'asd'},
+                ],
+                addUser: (e) => {
+                    e.preventDefault()
+                    ChatsController.create(login.login);
+                },
+                label: 'Отправить',
+                type: 'button',
+
             },
         );
     }
-
     render() {
-        return this.compile(template2, this.props);
+        return this.compile(template2,
+            {
+                ...this.props,
+                chats: this.props.chats?.map(chat => chat)
+
+            }
+            );
+
     }
 }
 
-export class ChatItem extends Block {
+const withChat = withStore((state) => ({
+    id: state.chats?.map(item => item.id),
+    selectChat: state.selectedChat,
+    chatName: state.selectedChat,
+    chats: state.chats?.map((item, index) => {
+        return {
+            onChat: () => {
+                console.log('onChat')
+                // ChatsController.delete(item.id)
+                ChatsController.selectChat(item.id)
+                ChatsController.selectChatName(item.title)
+                ChatsController.getChatUsers(item.id);
+            },
+            click: (target) => {
+                console.log(target)
+                // const input = this.refs.searchRef as Input;
+                const message = '';
+                //
+                // input.setValue('');
+
+                MessagesController.sendMessage(item.id, message);
+            },
+            id: item.id,
+            ava: item.avatar ? `https://ya-praktikum.tech/api/v2/resources/${item.avatar}` : avatar,
+            name: item.title,
+            newMessage: item.unread_count,
+            message: item.last_message
+        }
+    })
+}))
+export const ChatSearch = withChat(ChatSearchBase);
+window.ChatSearch = new ChatSearch()
+export class ChatItemBase extends Block {
+
+    constructor(props) {
+        super({
+            ...props,
+            events: {
+                click: props.onClick,
+            }
+        });
+        // console.log(props)
+    }
     render() {
-        return this.compile(template3, this.props);
+        return this.compile(template3,
+            {
+                ...this.props,
+                isSelected: this.props.id === this.props.selectedChat?.id
+            });
     }
 }
+export const withSelectedChat = withStore(state => (
+    {selectedChat: (state.chats || []).find(({id}) => id === state.selectedChat)
+    }));
+export const ChatItem = withSelectedChat(ChatItemBase);

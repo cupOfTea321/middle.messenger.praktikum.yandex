@@ -1,9 +1,11 @@
 <div class="profile-main">
-    <div class="profile-main__img">
+<!--    <div class="profile-main__img">-->
 
-        <img name="avatar" src="{{profileImg}}" alt="">
-    </div>
-    <p class="user__name">Иван</p>
+<!--        <img name="avatar" src="{{profileImg}}" alt="">-->
+<!--    </div>-->
+    {{{ ProfileAvatar avatarImg=avatarImg  onClick=uploadAvatar }}}
+    {{{ Input idInput="avatar-input" ref=inputAvatarRef accept="image/*" onChange=uploadAvatar name="avatar" type="file" }}}
+    <p class="user__name">{{profileName}}</p>
 
     <div class="profile-data">
         <!--        ${profileItems.map(item => (`-->
@@ -17,15 +19,16 @@
             {{{ProfileItem
                     first=this.first
                     second=this.second
-
+                    ref=this.ref
+                    class=this.class
             }}}
-            <hr>
+<!--            <hr>-->
         {{/each}}
-        <div class="profile-data__row profile-data__last">
-            <p class="bold">Телефон</p>
-            <p class="second">+7 (909) 967 30 30</p>
+<!--        <div class="profile-data__row profile-data__last">-->
+<!--            <p class="bold">Телефон</p>-->
+<!--            <p class="second">+7 (909) 967 30 30</p>-->
 
-        </div>
+<!--        </div>-->
     </div>
 
 
@@ -37,14 +40,26 @@
 <!--            </a>-->
 <!--                -->
 <!--        </button>-->
-        {{{Button
+        {{{Link
                 onClick=this.onClickChange
                 label="Изменить данные"
                 type="button"
+                to="/settings"
         }}}
         <hr>
-        <button>Изменить пароль</button>
+        {{{Link
+                onClick=this.onClickChange
+                label="Изменить пароль"
+                type="button"
+                to="/pass-settings"
+        }}}
         <hr>
-        <button class="profile-main__buttons-exit">Выйти</button>
+
+        {{{Button
+                onClick=logout
+                label="Выйти"
+                class="profile-main__buttons-exit"
+                type="button"
+        }}}
     </div>
 </div>

@@ -2,6 +2,8 @@ import Block from '../../utils/Block';
 import template from "./reg.hbs";
 import {render} from "../../utils/render";
 import Field from "../../components/Field";
+import {SigninData, SignupData} from "../../api/AuthAPI";
+import AuthController from "../../controllers/AuthController";
 
 interface RegistrationPageProps {
     title: string;
@@ -22,35 +24,32 @@ export class RegistrationPage extends Block {
             phone: '',
             password: '',
             password2: '',
+            display_name: ''
         }
 
         super({
             type: 'button',
             onSubmit: (e: MouseEvent) => {
                 e.preventDefault();
-                let fieldsName = this.props.fields;
+                const fieldsName = this.props.fields;
                 let hasErrors = false
 
-                for (let i = 0; i < fieldsName.length; i++) {
-                    for (let key in myValue) {
-                        let nameRef = this.props.fields[i].ref;
-
-                        if (key === fieldsName[i].name && myValue[key].length === 0) {
-
-                            this.refs[nameRef].setProps({
-                                error: 'пустое поле',
-                                req: true,
-                            })
-
-                            hasErrors = true;
-                        }
+                for(let i = 0;  i < fieldsName.length; i++ ){
+                    const nameRef = this.props.fields[i].ref;
+                    const fieldName = fieldsName[i].name;
+                    if (!myValue[fieldName]?.length) {
+                        this.refs[nameRef].setProps({
+                            error: 'пустое поле',
+                            req: true,
+                        });
+                        hasErrors = true;
                     }
                 }
                 if (hasErrors) {
                     return;
                 }
-                console.log(myValue);
-                render('chat')
+                myValue.display_name = myValue.first_name + " " + myValue.second_name
+                AuthController.signup(myValue as SignupData);
             },
             onBtnClick: () => {
                 render('auth');

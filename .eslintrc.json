@@ -1,19 +1,81 @@
 {
-  "extends": "airbnb", // Здесь вы указываете, что наследуетесь от набора правил
+  "parserOptions":{ "ecmaVersion": 8 },
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint",
+    "prettier"
+  ],
+  "extends": [
+    "airbnb-base",
+    "prettier"
+  ],
   "rules": {
-    "max-len": [2, 100],
-    "max-params": [2, 3]
-  }
+    "comma-dangle": 0,
+    "dot-notation": "off",
+    "no-new": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
+    "import/no-extraneous-dependencies": "off",
+    "no-restricted-syntax": "off",
+    "no-continue": "off",
+    "no-prototype-builtins": "off",
+    "prefer-destructuring": "off",
+    "no-shadow": "off",
+    "indent": "off",
+    "default-case": "off",
+    "max-classes-per-file": "off",
+    "no-useless-constructor": "off",
+    "no-empty-function": "off",
+    "new-cap": "off",
+    "no-useless-return": "off",
+    "no-constructor-return": "off",
+    "func-names": "off",
+    "max-len": [2, 500],
+    "@typescript-eslint/no-unused-vars": 2,
+    "no-console": "off",
+    "no-underscore-dangle": "off",
+    "import/prefer-default-export": "off",
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+    "no-use-before-define": "off",
+    "class-methods-use-this": "off",
+    "lines-between-class-members": "off",
+    "no-param-reassign":"off",
+    "prefer-arrow-callback": "off",
+    "arrow-body-style": "off",
+    "prefer-promise-reject-errors": "off",
+    "import/no-duplicates": "off",
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "ignorePackages",
+        "jsx": "ignorePackages",
+        "ts": "ignorePackages",
+        "tsx": "ignorePackages"
+      }
+    ]
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "jasmine": true,
+    "es6": true
+  },
+  "settings": {
+    "import/core-modules": ["handlebars", "vite"],
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx", ".json"],
+        "moduleDirectory": ["node_modules", "src"]
+      },
+      "typescript": {
+        "directory": "tsconfig.json"
+      }
+    }
+  },
+  "ignorePatterns": [
+    "node_modules",
+    "./node_modules",
+    "./node_modules/*",
+    "./node_modules/@types/node/index.d.ts"
+  ]
 }
-//{
-//  "extends": "airbnb",
-//  "parser": "@typescript-eslint/parser",
-//  "plugins": ["@typescript-eslint"],
-//  "rules": {
-//    "max-len": [2, 100],
-//    "@typescript-eslint/no-unused-vars": 2
-//  },
-//  "settings": {
-//    "import/core-modules": ["handlebars", "vite"]
-//  }
-//}

@@ -1,6 +1,6 @@
-import Router, { BlockConstructable } from './Router.ts'
 import { expect } from 'chai';
 import sinon from 'sinon';
+import Router, { BlockConstructable } from './Router.ts'
 
 describe('Router', () => {
 

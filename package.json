@@ -11,6 +11,7 @@
     "test": "mocha",
     "lint": "eslint .",
     "lint:styles": "stylelint \"**/*.pcss\" ",
+    "yalint": "npx eslint \"**/*.{js,ts}\" --rule \"@typescript-eslint/ban-ts-comment: error\" --fix",
     "prepare": "husky install"
   },
   "husky": {

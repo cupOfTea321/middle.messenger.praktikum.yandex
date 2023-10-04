@@ -4,12 +4,9 @@ import {render} from "../../utils/render";
 import Field from "../../components/Field";
 import AuthController from "../../controllers/AuthController";
 import {SigninData} from "../../api/AuthAPI";
-import router from "../../utils/Router";
 import Router from "../../utils/Router";
 
-interface AuthPageProps {
-    title: string;
-}
+
 
 export class AuthPage extends Block {
 
@@ -17,7 +14,7 @@ export class AuthPage extends Block {
         const loginRegExp = /^(?!^\d+$)[a-zA-Z0-9_-]{3,20}$/
         const passRegExp = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,40}$/
 
-        let myValue:Record<string, string> = {
+        const myValue:Record<string, string> = {
             login: '',
             password: '',
         }
@@ -65,7 +62,7 @@ export class AuthPage extends Block {
                         },
                         onFocusOut: (e: FocusEvent) => {
                             const target = e.target as HTMLInputElement;
-                            target && (this.refs.authLog as Field).checkMatches(target.value, this.refs.authLog, loginRegExp, 'логин должен быть длиннее 3 символов и начинаться с буквы');
+                            if(target) (this.refs.authLog as Field).checkMatches(target.value, loginRegExp, 'логин должен быть длиннее 3 символов и начинаться с буквы');
                         },
                     },
                     {
@@ -78,7 +75,7 @@ export class AuthPage extends Block {
                         },
                         onFocusOut: (e: FocusEvent) => {
                             const target = e.target as HTMLInputElement;
-                            target && (this.refs.authPass as Field).checkMatches(target.value, this.refs.authPass, passRegExp, 'пароль длиною 8-40 символов, содержит заглавную и цифру');
+                            if(target) (this.refs.authPass as Field).checkMatches(target.value,  passRegExp, 'пароль длиною 8-40 символов, содержит заглавную и цифру');
                         },
                     },
                 ]

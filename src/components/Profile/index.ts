@@ -11,9 +11,7 @@ import AuthController from "../../controllers/AuthController";
 import store, {withStore} from "../../utils/Store";
 import MutateController from "../../controllers/MutateController";
 import avatar from "../../../assets/profileAva.png";
-interface BlockInterface {
-    setProps(props: any): void;
-}
+
 export  class ProfileAside extends Block {
     constructor() {
         super({
@@ -76,8 +74,8 @@ export  class ProfileMainBase extends Block {
             if (store.getState().user?.hasOwnProperty(tagName)) {
                 this.refs[item.ref].setProps({ second: store.getState()?.user[tagName] });
             }
+            return true
         }))
-        // this.refs.avatarRef?.setProps({profileName: store.getState().user.first_name })
     }
     render() {
         return this.compile(template2, this.props);

@@ -11,26 +11,10 @@ import pointsIcon from "../../../assets/pointsIcon.png";
 import {render} from "../../utils/render";
 import ChatsController from "../../controllers/ChatsController";
 import store, {withStore} from "../../utils/Store";
-import {Input} from "../Input";
-import {Button} from "../Button";
-import MessagesController, { Message as MessageInfo } from "../../controllers/MessagesController";
-import {Message} from "../Message";
+import MessagesController from "../../controllers/MessagesController";
 import UserController from "../../controllers/MutateController";
 import {User} from "../../api/AuthAPI";
 
-interface MessengerProps {
-    selectedChat: number | undefined;
-    selectedChatName: string | undefined;
-    messages: MessageInfo[];
-    userId: number;
-    selectChatName: string,
-    avatarImg: string,
-    users: object[],
-    isMine: boolean;
-    events: {
-        click: () => void
-    }
-}
 
 export class ChatMainBase extends Block {
     constructor(props) {
@@ -47,9 +31,7 @@ export class ChatMainBase extends Block {
             pointsIcon,
             isMine: props.isMine,
             popupRef: "popupRef",
-            componentDidUpdate(oldProps: MessengerProps, newProps: MessengerProps): boolean {
-                // this.children.messages = this.createMessages(newProps);
-
+            componentDidUpdate(): boolean {
                 return true;
             },
             onChange: (e: FocusEvent) => {
@@ -64,7 +46,6 @@ export class ChatMainBase extends Block {
                     return;
                 }
                 this.props.errMes = false;
-                // this.props.isMine = false
                 MessagesController.sendMessage(this.props.selectedChat!, val.message);
 
                 val.message = ''
@@ -164,7 +145,7 @@ export class ChatSearchBase extends Block {
 
     constructor(props) {
 
-        let login: LoginValues = {
+        const login: LoginValues = {
             login: '',
         }
         super({
@@ -178,10 +159,6 @@ export class ChatSearchBase extends Block {
                 searchUser: (e: FocusEvent) => {
                     const target = e.target as HTMLInputElement;
                     login.login = target.value;
-                },
-                sendMessage: (e: FocusEvent) => {
-                    const target = e.target as HTMLInputElement;
-                    // val.message = target.value;
                 },
                 searchRef: "searchRef",
                 // settingImg: setting,
@@ -221,7 +198,7 @@ const withChat = withStore((state) => ({
     id: state.chats?.map(item => item.id),
     selectChat: state.selectedChat,
     chatName: state.selectedChat,
-    chats: state.chats?.map((item, index) => {
+    chats: state.chats?.map((item) => {
         return {
             onChat: () => {
                 console.log('onChat')

@@ -1,6 +1,6 @@
 import sinon, { SinonFakeXMLHttpRequest, SinonFakeXMLHttpRequestStatic } from 'sinon';
-import HTTPTransport from './HTTPTransport.ts';
 import { expect } from 'chai';
+import HTTPTransport from './HTTPTransport.ts';
 
 
 describe('HTTPTransport', () => {
@@ -11,7 +11,6 @@ describe('HTTPTransport', () => {
   beforeEach(() => {
     xhr = sinon.useFakeXMLHttpRequest();
 
-    // @ts-ignore
     global.XMLHttpRequest = xhr;
 
     xhr.onCreate = ((request: SinonFakeXMLHttpRequest) => {

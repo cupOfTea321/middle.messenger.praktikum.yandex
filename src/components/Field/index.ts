@@ -19,9 +19,6 @@ interface FieldProps {
         change: () => void;
     };
 }
-interface BlockInterface {
-    setProps(props: any): void;
-}
 export default class Field extends Block {
     constructor(props: FieldProps) {
         super({

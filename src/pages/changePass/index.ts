@@ -2,27 +2,11 @@ import Block from '../../utils/Block';
 import template from "./pass.hbs";
 import asideLine from '../../../assets/asideLine.png'
 import profileImg from '../../../assets/profileImg.png'
-import {render} from "../../utils/render";
 import Field from "../../components/Field";
 import store, {withStore} from "../../utils/Store";
 import MutateController from "../../controllers/MutateController";
 
-interface ChangeItems {
-    first: string;
-    second: string;
-    name: string
-}
-export interface UserData {
-    id?: number;
-    first_name?: string;
-    second_name?: string;
-    display_name?: string;
-    login?: string;
-    email?: string;
-    password?: string;
-    phone?: string;
-    avatar?: string;
-}
+
 export interface UserPassword {
     oldPassword: string;
     newPassword: string;
@@ -70,7 +54,7 @@ export class ChangePassPage extends Block {
                 if (hasErrors || myValue.newPassword !== myValue.newPasswordAgain ) {
                     return;
                 }
-                let dataValue: Record<string, string> = {};
+                const dataValue: Record<string, string> = {};
 
                 const keysToCopy = Object.keys(myValue).slice(0, 2);
 
@@ -137,6 +121,7 @@ export class ChangePassPage extends Block {
             if(myValue.hasOwnProperty(tagName)){
                 myValue[tagName] = store.getState().user[tagName]
             }
+            return true
         }))
     }
     render() {

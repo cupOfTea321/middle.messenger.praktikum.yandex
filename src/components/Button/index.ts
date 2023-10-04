@@ -22,16 +22,11 @@ class BaseButton extends Block {
                 click: props.onClick,
                 submit: (e) => {
                     e.preventDefault()
-                    // this.navigate();
-                    props.onSubmit
                 }
             }
         });
     }
 
-    navigate() {
-        this.props.router.go(this.props.to);
-    }
 
     render() {
         return this.compile(template, this.props);

@@ -1,5 +1,5 @@
-import {EventBus} from "./EventBus.ts";
 import {nanoid} from 'nanoid';
+import {EventBus} from "./EventBus.ts";
 
 // Нельзя создавать экземпляр данного класса
 abstract class Block<Props extends Record<string, any> = unknown> {
@@ -101,7 +101,7 @@ abstract class Block<Props extends Record<string, any> = unknown> {
     }
   }
 
-  protected componentDidUpdate(oldProps: any, newProps: any) {
+  protected componentDidUpdate() {
     return true;
   }
 

@@ -2,17 +2,11 @@ import Block from '../../utils/Block';
 import template from "./change.hbs";
 import asideLine from '../../../assets/asideLine.png'
 import avatar from '../../../assets/profileAva.png'
-import profileImg from '../../../assets/profileImg.png'
-import {render} from "../../utils/render";
 import Field from "../../components/Field";
-import store, {withStore} from "../../utils/Store";
+import {withStore} from "../../utils/Store";
 import MutateController from "../../controllers/MutateController";
 
-interface ChangeItems {
-    first: string;
-    second: string;
-    name: string
-}
+
 export interface UserData {
     id?: number;
     first_name?: string;
@@ -24,10 +18,7 @@ export interface UserData {
     phone?: string;
     avatar?: string;
 }
-export interface UserPassword {
-    oldPassword: string;
-    newPassword: string;
-}
+
 export class ChangeDataPage extends Block {
 
     constructor(props) {
@@ -43,7 +34,7 @@ export class ChangeDataPage extends Block {
                 e.preventDefault();
                 const fieldsName = this.props.fields;
                 let hasErrors = false
-                myValue.display_name = myValue.first_name + " " + myValue.second_name
+                myValue.display_name = `${myValue.first_name  } ${  myValue.second_name}`
                 for (let i = 0; i < fieldsName.length; i++) {
                     const nameRef = this.props.fields[i].ref;
                     const fieldName = fieldsName[i].name;

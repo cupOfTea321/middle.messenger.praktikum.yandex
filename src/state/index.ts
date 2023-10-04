@@ -1,4 +1,4 @@
-export const state: TProps = {
+export const state = {
     chats: {
         title: 'Messages',
         count: 12,

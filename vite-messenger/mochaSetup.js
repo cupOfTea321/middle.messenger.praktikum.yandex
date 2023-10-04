@@ -3,7 +3,7 @@ import { JSDOM } from 'jsdom';
 // import fs from 'fs';
 
 const { window } = new JSDOM('<div id="app"></div>', {
-  url: 'http://localhost:3000'
+  url: 'http://localhost:3000',
 });
 
 global.window = window;

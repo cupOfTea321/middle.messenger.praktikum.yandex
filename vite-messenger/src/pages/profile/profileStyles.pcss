@@ -2,17 +2,9 @@
     display: flex;
     height: 100vh;
 }
-.profile-aside{
-    width: 60px;
-    background: #FBFBFB;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    a img{
-        width: 28px;
-        height: 28px;
-    }
-}
+
+
+
 .profile-main{
     margin-top: 60px;
     text-align: center;
@@ -20,12 +12,11 @@
     width: 100%;
     flex-direction: column;
     align-items: center;
-    &__img:hover{
-        background: #000000;
-        cursor: pointer;
-    }
+
+
+
     &__img{
-            background: #EFEFEF;
+            background: #efefef;
             border-radius: 50%;
         width: 130px;
         height: 130px;
@@ -33,23 +24,29 @@
         align-items: center;
         justify-content: center;
         margin-bottom: 21px;
-        :hover{
 
-        }
         img{
             width: 130px;
             height: 130px;
             border-radius: 50%;
         }
     }
+
+    &__img:hover{
+        background: #000;
+        cursor: pointer;
+    }
+
     p{
         font-size: 16px;
     }
+
     &__buttons{
         display: flex;
         flex-direction: column;
         margin-top: 50px;
         width: 40%;
+
         button, span{
             border: none;
             color: var(--new);
@@ -60,22 +57,38 @@
             margin-top: 10px;
             margin-bottom: 10px;
         }
+
         a{
             text-decoration: none;
             color: inherit;
         }
     }
+
     &__buttons-exit{
-        color: #FF0000 !important;
+        color: #f00 !important;
     }
 }
+
+.profile-aside{
+    width: 60px;
+    background: #fbfbfb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    a img{
+        width: 28px;
+        height: 28px;
+    }
+}
+
 .profile-data{
     margin-top: 60px;
-
     display: flex;
     flex-direction: column;
     width: 100%;
     justify-content: space-between;
+
     &__row{
         display: flex;
         flex-direction: row;
@@ -85,12 +98,14 @@
         margin: 10px auto;
         border-bottom: 1px solid grey;
         padding-bottom: 10px;
+
         input{
             border: none;
             text-align: right;
             font-size: 16px;
 
         }
+
         input:focus {
             outline: none;
         }
@@ -100,13 +115,14 @@
         margin-bottom: 40px ;
 
     }
+
     hr{
         width: 40%;
         margin: 0 auto;
     }
 }
-.profile-button {
 
+.profile-button {
     bottom: 60px;
     padding: 12px 70px;
     border-radius: 10px;
@@ -114,7 +130,8 @@
     border: none;
     color: white;
 }
-.lastField{
+
+.last-field{
     margin-bottom: 40px;
     border-bottom: none
 }

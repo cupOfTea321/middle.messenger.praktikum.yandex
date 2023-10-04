@@ -144,7 +144,7 @@ export class ChangeDataPage extends Block {
                     first: 'Телефон',
                     second: props.phone,
                     name: 'phone',
-                    class: 'lastField',
+                    class: 'last-field',
                     ref: 'phoneRef',
                     onFocusOut: (e: FocusEvent) => {
                         const target = e.target as HTMLInputElement;

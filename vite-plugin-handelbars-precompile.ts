@@ -12,8 +12,9 @@ export default function vitePluginHandlebarsPrecompile(): PluginOption {
                     
                         export default Handlebars.template(${Handlebars.precompile(code)});    
                     `,
-                }
+                };
             }
+            return null;
         }
     }
 }

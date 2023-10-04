@@ -10,7 +10,7 @@
     "start": "npm run build && node server.js",
     "test": "mocha",
     "lint": "eslint .",
-    "lint:styles": "stylelint \\\"**/*.pcss\\\" --fix",
+    "lint:styles": "stylelint \"**/*.pcss\" ",
     "prepare": "husky install"
   },
   "husky": {

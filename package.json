@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "start": "npm run build && node server.js",
     "test": "mocha",
-    "lint": "eslint . --fix",
+    "lint": "eslint .",
     "lint:styles": "stylelint \\\"**/*.pcss\\\" --fix",
     "prepare": "husky install"
   },

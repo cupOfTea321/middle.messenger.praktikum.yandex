@@ -10,11 +10,12 @@
     "start": "npm run build && node server.js",
     "test": "mocha",
     "lint": "eslint . --fix",
-    "lint:styles": "stylelint \"**/*.pcss\" --fix"
+    "lint:styles": "stylelint \\\"**/*.pcss\\\" --fix",
+    "prepare": "husky install"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm-run-all test lint:all"
+      "pre-commit": "npm-run-all test lint lint:styles"
     }
   },
   "devDependencies": {
@@ -31,7 +32,7 @@
     "esm-loader-typescript": "^1.0.5",
     "esmock": "^2.5.1",
     "express": "^4.18.2",
-    "husky": "^8.0.3",
+    "husky": "^8.0.0",
     "mocha": "^10.2.0",
     "node-esm-loader": "^0.2.5",
     "postcss-nested": "^6.0.1",

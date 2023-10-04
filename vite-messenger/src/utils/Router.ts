@@ -1,6 +1,6 @@
 import Block from './Block';
 
-interface BlockConstructable<P = any> {
+export interface BlockConstructable<P = any> {
   new(props: P): Block<P>;
 }
 
@@ -111,7 +111,11 @@ class Router {
   public forward() {
     this.history.forward();
   }
+  public reset() {
+    delete Router.__instance;
 
+    new Router(this.rootQuery);
+  }
   private getRoute(pathname: string) {
     return this.routes.find(route => route.match(pathname));
   }

@@ -17,7 +17,7 @@ describe('AuthController', () => {
 
         mockAuth = myAuthController;
     })
-   it('signin() должен проверить данные которые принимает аргументом',  ()=>{
+   it('signin() must check user argument data',  ()=>{
        const testData = { login: 'testUser', password: 'testPassword' };
        mockAuth.signin(testData);
 

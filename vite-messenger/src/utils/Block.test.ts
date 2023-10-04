@@ -36,7 +36,7 @@ describe('Block', async () => {
     };
   })
 
-  it('эмит события init ',  () => {
+  it('should fire init event on initialization',  () => {
     new ComponentMock({});
 
     expect(eventBusMock.emit.calledWith('init')).to.eq(true);

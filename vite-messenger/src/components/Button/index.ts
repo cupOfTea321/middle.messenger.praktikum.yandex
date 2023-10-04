@@ -1,6 +1,6 @@
 import template from './button.hbs';
-import Block from "../../utils/Block";
-import {withRouter} from "../../helpers/withRouter";
+import Block from "../../utils/Block.ts";
+import {withRouter} from "../../helpers/withRouter.ts";
 
 interface ButtonProps {
     to?: string;

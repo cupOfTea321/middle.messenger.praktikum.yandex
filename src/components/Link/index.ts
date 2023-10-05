@@ -2,7 +2,7 @@ import Block from '../../utils/Block.ts';
 import template from './link.hbs';
 import {PropsWithRouter, withRouter} from "../../helpers/withRouter.ts";
 
-interface LinkProps extends PropsWithRouter {
+export interface LinkProps extends PropsWithRouter {
     to: string;
     label: string;
     events?: {

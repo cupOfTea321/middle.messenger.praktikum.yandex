@@ -26,7 +26,7 @@ export default class Field extends Block {
             // req: props.req,
             req: false,
             showPass: false,
-            fieldValue: props.value || '',
+            value: props.value || '',
             events: {
                 click: props.onClick,
                 focusout:  props.onFocusOut,
@@ -36,14 +36,17 @@ export default class Field extends Block {
             }
         });
     }
-    checkMatches(val: string, reg: any, mes: string) {
+    checkMatches(val: string,  reg: any, mes: string) {
+        console.log(this, 'adsdsa')
         if (!reg.test(val)) {
+            console.log('if')
             this.setProps({
                 second: val,
                 error: mes,
                 req: true,
             })
         } else {
+            console.log('else')
             this.setProps({
                 second: val,
                 req: false

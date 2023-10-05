@@ -36,7 +36,7 @@ export class AuthAPI extends BaseAPI {
     super('/auth');
   }
 
-  signin(data: Record<string, string>) {
+  signin(data: SigninData) {
     return this.http.post('/signin', data);
   }
 

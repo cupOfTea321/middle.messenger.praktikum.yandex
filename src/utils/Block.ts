@@ -91,13 +91,15 @@ class Block<Props extends Record<string, any> = any> {
     Object.values(this.children).forEach(child => child.dispatchComponentDidMount());
   }
 
-  private _componentDidUpdate() {
-    if (this.componentDidUpdate()) {
+  private _componentDidUpdate(oldProps: any, newProps: any) {
+    if (this.componentDidUpdate(oldProps, newProps)) {
       this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
   }
 
-  protected componentDidUpdate() {
+  protected componentDidUpdate(oldProps: any, newProps: any) {
+    console.log(oldProps)
+    console.log(newProps)
     return true;
   }
 

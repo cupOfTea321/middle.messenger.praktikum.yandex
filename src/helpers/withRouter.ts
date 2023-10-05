@@ -1,5 +1,6 @@
 import Block from '../utils/Block.ts';
 import Router from "../utils/Router.ts";
+
 export interface BlockConstructable<P extends  Record<string, any>> {
   new(props: P): Block<P>;
   EVENTS: typeof Block.EVENTS

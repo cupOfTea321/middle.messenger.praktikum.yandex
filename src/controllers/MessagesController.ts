@@ -95,6 +95,6 @@ class MessagesController {
 
 const controller = new MessagesController();
 
-window.messagesController = controller;
+// window.messagesController = controller;
 
 export default controller;

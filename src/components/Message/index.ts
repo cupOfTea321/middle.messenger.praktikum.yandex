@@ -1,6 +1,5 @@
 import Block from '../../utils/Block';
 import template from './message.hbs';
-import styles from './styles.module.pcss';
 
 interface MessageProps {
   content: string;
@@ -13,6 +12,6 @@ export class Message extends Block {
   }
 
   protected render(): DocumentFragment {
-    return this.compile(template, { ...this.props, styles });
+    return this.compile(template, { ...this.props});
   }
 }

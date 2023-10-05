@@ -12,10 +12,6 @@ export interface UserData {
     phone?: string;
     avatar?: string;
 }
-export interface UserPassword {
-    oldPassword: string;
-    newPassword: string;
-}
 
 export class UserAPI extends BaseAPI{
     constructor() {

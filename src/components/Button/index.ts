@@ -20,7 +20,7 @@ class BaseButton extends Block {
             ...props,
             events: {
                 click: props.onClick,
-                submit: (e) => {
+                submit: (e: any) => {
                     e.preventDefault()
                 }
             }

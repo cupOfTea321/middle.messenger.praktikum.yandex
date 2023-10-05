@@ -34,7 +34,7 @@ export  class ProfileAside extends Block {
     }
 }
 class ProfileMainBase extends Block {
-    constructor(props) {
+    constructor(props: any) {
         super({
             profileImg,
             logout: ()=> {
@@ -64,7 +64,7 @@ class ProfileMainBase extends Block {
                 {ref: "phoneRef", tagName: "phone", first: 'Телефон', second: '+7 (999) 999 99 99', class: 'lastField'},
             ]
         });
-        (this.props.fields.map((item)=>{
+        (this.props.fields.map((item: any)=>{
             const tagName = item.tagName;
 
             if (store.getState().user?.hasOwnProperty(tagName)) {
@@ -83,7 +83,7 @@ const withUser  = withStore((state) => ({
 }))
 export const ProfileMain = withUser(ProfileMainBase);
 export  class ProfileItem extends Block {
-    constructor(props) {
+    constructor(props: any) {
         super({
             profileImg,
             ...props
@@ -94,7 +94,7 @@ export  class ProfileItem extends Block {
     }
 }
 export  class ChangeItem extends Block {
-    constructor(props) {
+    constructor(props: any) {
         super({
             profileImg,
             req: false,

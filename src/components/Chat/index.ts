@@ -16,7 +16,7 @@ import {User} from "../../api/AuthAPI";
 
 
 class ChatMainBase extends Block {
-    constructor(props) {
+    constructor(props: any) {
         const val = {
             message: '',
         }
@@ -142,7 +142,7 @@ interface LoginValues {
 
 export class ChatSearchBase extends Block {
 
-    constructor(props) {
+    constructor(props: any) {
 
         const login: LoginValues = {
             login: '',
@@ -167,7 +167,7 @@ export class ChatSearchBase extends Block {
                 chat: [
                     {messages: 'asd'},
                 ],
-                addUser: (e) => {
+                addUser: (e: any) => {
                     e.preventDefault()
                     ChatsController.create(login.login);
                 },
@@ -178,10 +178,11 @@ export class ChatSearchBase extends Block {
         );
     }
     render() {
+        const chats = this.props.chats?.map((chat: any) => chat)
         return this.compile(template2,
             {
                 ...this.props,
-                chats: this.props.chats?.map(chat => chat)
+                chats
 
             }
             );
@@ -202,8 +203,7 @@ const withChat = withStore((state) => ({
                 ChatsController.selectChatName(item.title)
                 ChatsController.getChatUsers(item.id);
             },
-            click: (target) => {
-                console.log(target)
+            click: () => {
                 // const input = this.refs.searchRef as Input;
                 const message = '';
                 //
@@ -220,10 +220,10 @@ const withChat = withStore((state) => ({
     })
 }))
 export const ChatSearch = withChat(ChatSearchBase);
-window.ChatSearch = new ChatSearch()
+// window.ChatSearch = new ChatSearch()
 export class ChatItemBase extends Block {
 
-    constructor(props) {
+    constructor(props: any) {
         super({
             ...props,
             events: {

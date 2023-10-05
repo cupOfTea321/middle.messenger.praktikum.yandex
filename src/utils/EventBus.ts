@@ -31,7 +31,8 @@ export class EventBus<
   // АНАЛОГ DISPATCH ИЗ REDUX
   emit<Event extends MapInterface<E>>(event: Event, ...args: Args[Event]) {
     if (!this.listeners[event]) {
-      throw new Event(`Нет события: ${event}`);
+      // throw new Event(`Нет события: ${event}`);
+      return
     }
 
     this.listeners[event]!.forEach(listener => {

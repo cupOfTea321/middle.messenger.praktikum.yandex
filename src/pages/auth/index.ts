@@ -2,6 +2,7 @@ import Block from '../../utils/Block';
 import template from "./auth.hbs";
 import Field from "../../components/Field";
 import AuthController from "../../controllers/AuthController";
+import {SigninData} from "../../api/AuthAPI";
 
 
 export class AuthPage extends Block {
@@ -38,7 +39,7 @@ export class AuthPage extends Block {
                         return;
                     }
 
-                    AuthController.signin(myValue );
+                    AuthController.signin(myValue as unknown as SigninData );
 
 
                     // render('chat')
@@ -55,7 +56,7 @@ export class AuthPage extends Block {
                         },
                         onFocusOut: (e: FocusEvent) => {
                             const target = e.target as HTMLInputElement;
-                            if(target) (this.refs.authLog as Field).checkMatches(target.value, loginRegExp, 'логин должен быть длиннее 3 символов и начинаться с буквы');
+                            if(target as unknown) (this.refs.authLog as Field).checkMatches(target.value,  loginRegExp, 'логин должен быть длиннее 3 символов и начинаться с буквы');
                         },
                     },
                     {
@@ -68,7 +69,7 @@ export class AuthPage extends Block {
                         },
                         onFocusOut: (e: FocusEvent) => {
                             const target = e.target as HTMLInputElement;
-                            if(target) (this.refs.authPass as Field).checkMatches(target.value,  passRegExp, 'пароль длиною 8-40 символов, содержит заглавную и цифру');
+                            if(target) (this.refs.authPass as Field).checkMatches(target.value, passRegExp, 'пароль длиною 8-40 символов, содержит заглавную и цифру');
                         },
                     },
                 ]

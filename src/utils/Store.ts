@@ -4,6 +4,7 @@ import Block from './Block.ts';
 import { User } from '../api/AuthAPI.ts';
 import { ChatInfo } from '../api/ChatsAPI.ts';
 import { Message } from '../controllers/MessagesController.ts';
+
 type PropsObject = Record<string, any>;
 export enum StoreEvents {
   Updated = 'updated'

@@ -1,11 +1,7 @@
 import Block from '../../utils/Block';
 import template from "./auth.hbs";
-import {render} from "../../utils/render";
 import Field from "../../components/Field";
 import AuthController from "../../controllers/AuthController";
-import {SigninData} from "../../api/AuthAPI";
-import Router from "../../utils/Router";
-
 
 
 export class AuthPage extends Block {
@@ -20,10 +16,7 @@ export class AuthPage extends Block {
         }
         super({
 
-                onBtnClick: () => {
-                    render('reg');
-                    Router.go('/chat')
-                },
+
                 onSubmit: (e: MouseEvent) => {
                     e.preventDefault();
 
@@ -45,7 +38,7 @@ export class AuthPage extends Block {
                         return;
                     }
 
-                    AuthController.signin(myValue as SigninData);
+                    AuthController.signin(myValue );
 
 
                     // render('chat')

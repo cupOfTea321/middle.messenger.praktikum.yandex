@@ -21,7 +21,6 @@ class BaseLink extends Block<LinkProps> {
             },
         });
     }
-
     navigate() {
         this.props.router.go(this.props.to);
     }

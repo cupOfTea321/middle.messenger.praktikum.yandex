@@ -1,4 +1,4 @@
-import API, {UserAPI, UserData, UserPassword} from "../api/UserAPI";
+import API, {UserAPI, UserData} from "../api/UserAPI";
 import store from "../utils/Store";
 import router from "../utils/Router";
 import ChatsController from "./ChatsController";
@@ -45,7 +45,7 @@ export class UserController {
         }
     }
 
-    async mutatePassword(data: UserPassword) {
+    async mutatePassword(data: Record<string, string>) {
         try {
             await this.api.mutatePassword(data);
 

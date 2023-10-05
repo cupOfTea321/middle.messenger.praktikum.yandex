@@ -2,7 +2,7 @@ import {nanoid} from 'nanoid';
 import {EventBus} from "./EventBus.ts";
 
 // Нельзя создавать экземпляр данного класса
-abstract class Block<Props extends Record<string, any> = unknown> {
+class Block<Props extends Record<string, any> = any> {
   static EVENTS = {
     INIT: "init",
     FLOW_CDM: "flow:component-did-mount",
@@ -16,7 +16,6 @@ abstract class Block<Props extends Record<string, any> = unknown> {
   public children: Record<string, Block>;
   private eventBus: () => EventBus;
   private _element: HTMLElement | null = null;
-  private _meta: { props: any; };
 
   /** JSDoc
    * @param {string} tagName
@@ -29,9 +28,6 @@ abstract class Block<Props extends Record<string, any> = unknown> {
 
     const {props, children} = this._getChildrenAndProps(propsWithChildren);
 
-    this._meta = {
-      props
-    };
 
     this.children = children;
     this.props = this._makePropsProxy(props);
@@ -59,7 +55,7 @@ abstract class Block<Props extends Record<string, any> = unknown> {
   }
 
   _addEvents() {
-    const {events = {}} = this.props as { events: Record<string, () => void> };
+    const events = (this.props.events || {}) as Record<string, (...args: any[]) => void>
 
     Object.keys(events).forEach(eventName => {
       this._element?.addEventListener(eventName, events[eventName]);
@@ -95,8 +91,8 @@ abstract class Block<Props extends Record<string, any> = unknown> {
     Object.values(this.children).forEach(child => child.dispatchComponentDidMount());
   }
 
-  private _componentDidUpdate(oldProps: any, newProps: any) {
-    if (this.componentDidUpdate(oldProps, newProps)) {
+  private _componentDidUpdate() {
+    if (this.componentDidUpdate()) {
       this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
   }

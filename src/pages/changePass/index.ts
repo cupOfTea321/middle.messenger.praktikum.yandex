@@ -62,7 +62,7 @@ export class ChangePassPage extends Block {
                     dataValue[key] = myValue[key];
                 });
                 console.log('onSubmit')
-                MutateController.mutatePassword(dataValue as UserPassword)
+                MutateController.mutatePassword(dataValue )
             },
             fields: [
                 {
@@ -113,7 +113,7 @@ export class ChangePassPage extends Block {
                 },
             ],
         });
-        (this.props.fields.map((item)=>{
+        (this.props.fields.map((item: any)=>{
             const tagName = item.name;
             if (store.getState().user.hasOwnProperty(tagName)) {
                 this.refs[item.ref].setProps({ second: store.getState().user[tagName] });

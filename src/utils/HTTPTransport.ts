@@ -10,7 +10,7 @@ type Options = {
   method: Method;
   data?: any;
 };
- type HTTPMethod = <R=unknown>(path: string, options?: unknown) => Promise<R>
+ // type HTTPMethod = <Response>(path: string, data?: unknown) => Promise<Response>
 export default class HTTPTransport {
   static API_URL = 'https://ya-praktikum.tech/api/v2';
   protected endpoint: string;
@@ -19,18 +19,18 @@ export default class HTTPTransport {
     this.endpoint = `${HTTPTransport.API_URL}${endpoint}`;
   }
 
-  public get: HTTPMethod = (path = '/')  => {
+  public get<Response>(path = '/'): Promise<Response> {
     return this.request<Response>(this.endpoint + path);
   }
 
-  public post: HTTPMethod = (path, data?) =>  {
+  public post<Response>(path: string, data?: unknown): Promise<Response>{
     return this.request<Response>(this.endpoint + path, {
       method: Method.Post,
       data,
     });
   }
 
-  public put: HTTPMethod = (path: string, data: unknown) => {
+  public put<Response>(path: string, data: unknown): Promise<Response>{
     return this.request<Response>(this.endpoint + path, {
       method: Method.Put,
       data,
@@ -44,7 +44,7 @@ export default class HTTPTransport {
     });
   }
 
-  public delete: HTTPMethod = (path, data?) => {
+  public delete<Response>  (path: string, data?: unknown) : Promise<Response> {
     return this.request<Response>(this.endpoint + path, {
       method: Method.Delete,
       data

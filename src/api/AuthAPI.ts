@@ -6,13 +6,15 @@ export interface SigninData {
 }
 
 export interface SignupData {
-  first_name: string;
-  second_name: string;
-  display_name: string;
-  login: string;
-  email: string;
-  password: string;
-  phone: string;
+  email: string | any;
+  login: string | any;
+  first_name: string | any;
+  second_name: string | any;
+  phone: string | any;
+  display_name: string | any;
+  password: string | any;
+  password2: string | any;
+
 }
 
 export interface User {
@@ -34,12 +36,12 @@ export class AuthAPI extends BaseAPI {
     super('/auth');
   }
 
-  signin(data: SigninData) {
+  signin(data: Record<string, string>) {
     return this.http.post('/signin', data);
   }
 
 
-  signup(data: SignupData) {
+  signup(data: Record<string, string>) {
     return this.http.post('/signup', data);
   }
 

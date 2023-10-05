@@ -6,7 +6,6 @@ import template4 from "./changeItem.hbs";
 import Block from "../../utils/Block";
  import asideLine from "../../../assets/asideLine.png"
  import profileImg from "../../../assets/profileImg.png"
-import {render} from "../../utils/render";
 import AuthController from "../../controllers/AuthController";
 import store, {withStore} from "../../utils/Store";
 import MutateController from "../../controllers/MutateController";
@@ -34,7 +33,7 @@ export  class ProfileAside extends Block {
         return this.compile(template, this.props);
     }
 }
-export  class ProfileMainBase extends Block {
+class ProfileMainBase extends Block {
     constructor(props) {
         super({
             profileImg,
@@ -55,9 +54,6 @@ export  class ProfileMainBase extends Block {
                 } else {
                     console.error('Не выбран файл');
                 }
-            },
-            onClickChange: () => {
-                render('change')
             },
             fields: [
                 {ref: "mailRef", tagName: "email", first: 'Почта', second: 'pochta@yandex.ru'},
@@ -81,7 +77,7 @@ export  class ProfileMainBase extends Block {
         return this.compile(template2, this.props);
     }
 }
-const withUser = withStore((state) => ({
+const withUser  = withStore((state) => ({
     ...state.user,
     avatarImg: state.user.avatar ? `https://ya-praktikum.tech/api/v2/resources/${state.user.avatar}` : avatar,
 }))

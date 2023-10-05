@@ -27,7 +27,7 @@ export class UserAPI extends BaseAPI{
     mutateAvatar(data: FormData) {
         return this.http.put('/profile/avatar', data);
     }
-    mutatePassword(data: UserPassword) {
+    mutatePassword(data: Record<string, string>) {
         return this.http.put('/password', data);
     }
     searchUser(data: object): Promise<User[]> {

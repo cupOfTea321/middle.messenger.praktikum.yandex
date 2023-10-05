@@ -1,8 +1,6 @@
 import Block from '../../utils/Block';
 import template from "./reg.hbs";
-import {render} from "../../utils/render";
 import Field from "../../components/Field";
-import {SignupData} from "../../api/AuthAPI";
 import AuthController from "../../controllers/AuthController";
 
 
@@ -35,6 +33,7 @@ export class RegistrationPage extends Block {
                 for(let i = 0;  i < fieldsName.length; i++ ){
                     const nameRef = this.props.fields[i].ref;
                     const fieldName = fieldsName[i].name;
+
                     if (!myValue[fieldName]?.length) {
                         this.refs[nameRef].setProps({
                             error: 'пустое поле',
@@ -47,10 +46,7 @@ export class RegistrationPage extends Block {
                     return;
                 }
                 myValue.display_name = `${myValue.first_name  } ${  myValue.second_name}`
-                AuthController.signup(myValue as SignupData);
-            },
-            onBtnClick: () => {
-                render('auth');
+                AuthController.signup(myValue);
             },
 
             buttons: [

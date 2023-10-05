@@ -4,7 +4,7 @@ import Block from './Block.ts';
 import { User } from '../api/AuthAPI.ts';
 import { ChatInfo } from '../api/ChatsAPI.ts';
 import { Message } from '../controllers/MessagesController.ts';
-
+type PropsObject = Record<string, any>;
 export enum StoreEvents {
   Updated = 'updated'
 }
@@ -35,10 +35,12 @@ export class Store extends EventBus {
 
 const store = new Store();
 
-window.store = store;
-
+interface WithStoreConstructable<P extends Record<string, any>, SP> {
+  new(props: P & SP): Block<P & SP>;
+  EVENTS: typeof Block.EVENTS
+}
 export function withStore<SP>(mapStateToProps: (state: State) => SP) {
-  return function wrap<P>(Component: typeof Block<SP & P>){
+  return function wrap<P extends PropsObject>(Component: WithStoreConstructable<P, SP>){
 
     return class WithStore extends Component {
       // private onStoreUpdate: () => void

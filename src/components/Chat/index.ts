@@ -8,7 +8,6 @@ import sawIcon from "../../../assets/sawIcon.png";
 import addIcon from "../../../assets/addIcon.png";
 import sandIcon from "../../../assets/sandIcon.png";
 import pointsIcon from "../../../assets/pointsIcon.png";
-import {render} from "../../utils/render";
 import ChatsController from "../../controllers/ChatsController";
 import store, {withStore} from "../../utils/Store";
 import MessagesController from "../../controllers/MessagesController";
@@ -16,7 +15,7 @@ import UserController from "../../controllers/MutateController";
 import {User} from "../../api/AuthAPI";
 
 
-export class ChatMainBase extends Block {
+class ChatMainBase extends Block {
     constructor(props) {
         const val = {
             message: '',
@@ -149,10 +148,6 @@ export class ChatSearchBase extends Block {
             login: '',
         }
         super({
-                onClickChat: () => {
-                    render('profile')
-                    console.log('onClick')
-                },
                 onSubmit: (e: MouseEvent) => {
                     e.preventDefault();
                 },

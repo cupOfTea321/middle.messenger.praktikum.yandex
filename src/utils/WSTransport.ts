@@ -9,7 +9,7 @@ export enum WSTransportEvents {
 
 export default class WSTransport extends EventBus {
   private socket: WebSocket | null = null;
-  private pingInterval: number = 0;
+  private pingInterval: number | NodeJS.Timeout = 0;
 
   constructor(private url: string) {
     super();
@@ -75,8 +75,9 @@ export default class WSTransport extends EventBus {
        }
 
        this.emit(WSTransportEvents.Message, data)
-     } catch (e) {
-       console.log(e.message)
+     } catch (e: any | unknown) {
+       const err: string =  e.message
+       console.log(err)
      }
     });
   }

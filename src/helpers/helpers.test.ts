@@ -34,7 +34,8 @@ describe('set function', () => {
 
   it('should throw an error if path is not a string', () => {
     const keypathNotAString = 10;
-
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
     const f = () => set(obj, keypathNotAString, value);
 
     expect(f).to.throw(Error);

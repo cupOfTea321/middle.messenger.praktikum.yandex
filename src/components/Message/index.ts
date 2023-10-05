@@ -7,7 +7,7 @@ interface MessageProps {
   isMine: boolean;
 }
 
-export class Message extends Block<MessageProps> {
+export class Message extends Block {
   constructor(props: MessageProps) {
     super(props);
   }

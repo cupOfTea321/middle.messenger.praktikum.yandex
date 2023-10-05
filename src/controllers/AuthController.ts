@@ -1,4 +1,4 @@
-import API, { AuthAPI, SigninData, SignupData } from '../api/AuthAPI.ts';
+import API, {AuthAPI} from '../api/AuthAPI.ts';
 import MessagesController from './MessagesController.ts';
 import router from "../utils/Router.ts";
 import store from "../utils/Store.ts";
@@ -11,7 +11,7 @@ export class AuthController {
   }
 
   // валидация формы происходит здесь в catch
-  public async signin(data: SigninData) {
+  public async signin(data: Record<string, string>) {
     // store.set('auth.error', null)
     // store.set('auth.isLoading', true)
     try {
@@ -28,7 +28,7 @@ export class AuthController {
     }
   }
 
-  async signup(data: SignupData) {
+  async signup(data: Record<string, string>) {
     try {
       await this.api.signup(data);
       console.log(data, ' signup')

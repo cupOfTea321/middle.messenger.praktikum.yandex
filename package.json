@@ -14,6 +14,11 @@
     "yalint": "npx eslint \"**/*.{js,ts}\" --rule \"@typescript-eslint/ban-ts-comment: error\" --fix",
     "prepare": "husky install"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm-run-all test lint lint:styles"
+    }
+  },
   "devDependencies": {
     "@types/chai": "^4.3.6",
     "@types/jsdom": "^21.1.3",

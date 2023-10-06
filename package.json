@@ -11,7 +11,7 @@
     "lint": "eslint .",
     "lint:styles": "stylelint \"**/*.pcss\" ",
     "yalint": "npx eslint \"**/*.{js,ts}\" --rule \"@typescript-eslint/ban-ts-comment: error\" --fix",
-    "prepare": "npx husky-init && npm install && husky install"
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@types/chai": "^4.3.6",

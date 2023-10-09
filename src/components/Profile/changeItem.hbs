@@ -1,0 +1,10 @@
+
+<div class="profile-data__row {{class}}" id="profile-data">
+    <label class="bold" for="{{name}}">{{first}}</label>
+    <input type="text"   id="{{name}}" name="{{name}}" class="second"  value="{{second}}" required/>
+    {{#if req}}
+        <span class="error-message">
+            {{error}}
+        </span>
+    {{/if}}
+</div>

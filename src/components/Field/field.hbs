@@ -1,0 +1,14 @@
+<!--<span class="registration-form__items" onfocusout="{{ onFocusOut }}">-->
+<!--    <label for="password">{{label}}</label>-->
+<!--    <input name="{{name}}" type="text">-->
+<!--</span>-->
+<span class="registration-form__items">
+    <label for="{{name}}">{{label}}</label>
+    <input id="{{name}}" name="{{name}}" type="text" value="{{ second }}" required>
+    {{#if req}}
+        <span>
+            {{error}}
+        </span>
+    {{/if}}
+</span>
+

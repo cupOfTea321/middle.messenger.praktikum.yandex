@@ -1,0 +1,46 @@
+{
+  "ts-node": {
+    "files": true
+  },
+  "compilerOptions": {
+    "target": "es2016",
+    "module": "es6",
+    "moduleResolution": "node",
+    "allowJs": true,
+    "useDefineForClassFields": true,
+    "lib": ["ESNext", "DOM"],
+    "noEmit": true,
+    "strict": true,
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "skipLibCheck": true,
+    "noImplicitAny": true,
+    "sourceMap": true,
+    "strictNullChecks": true,
+    "baseUrl": "./",
+    "paths": {
+      "@utils/*": ["src/utils/*"]
+    }
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx", ".json"],
+        "moduleDirectory": ["node_modules", "src"]
+      },
+      "typescript": {
+        "directory": "tsconfig.json"
+      }
+    }
+  },
+  "include": [
+    "src",
+    "src/typings/hbs.d.ts",
+    "vite.config.ts"
+  ]
+}

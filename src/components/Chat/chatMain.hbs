@@ -1,0 +1,61 @@
+{{#if selectedChat }}
+<div class="chat-main">
+    {{#PopupWrap isOpenPopup=isOpenPopup }}
+        <div class="chat-messages__wrap">
+            <div>
+
+                {{#each users}}
+                    {{{ChatUserItem login=this.login onClick=this.deleteUser}}}
+                {{/each}}
+            </div>
+            {{{Button type="button" class="chat-messages__wrap-btn" onClick=closePopup label="close"}}}
+        </div>
+    {{/PopupWrap}}
+    <div class="chat-main__user">
+        <div>
+            <img class="user-ava" src="{{ava}}" alt="avatar">
+
+            <p class="user-name">{{selectedChatName}}</p>
+        </div>
+        <div>
+            <form  class="form__search chat-main__search" id="myForm" onsubmit="event.preventDefault();">
+                {{{Input onChange=searchUser ref="searchRef" idInput="search" name="search" type="text" placeholder="добавить юзера" required="true"}}}
+                {{{Button  type="button" class="chat-main__search-btn" onClick=addUser label="добавить"}}}
+            </form>
+            <div class='chat-main__user-modal'>
+                {{{ Input class="invisible" idInput="avatar_chat" accept="image/*" onChange=addAvatar name="avatar_chat" type="file" }}}
+                <label for="avatar_chat">Изменить аватар</label>
+
+                {{{Button type="button" onClick=openPopup label="список юзеров"}}}
+                {{{Button type="button" onClick=closeChat label="закрыть чат"}}}
+            </div>
+            <img class="chat-main__img" src="{{pointsIcon}}" alt="">
+        </div>
+
+    </div>
+    <hr>
+
+    <div class="chat-messages">
+
+        {{#each messages }}
+            {{{ Message content=this.content isMine=this.isMine }}}
+        {{/each}}
+    </div>
+    <footer class="chat-footer">
+        <hr class="chat-footer__hr">
+        <div class="chat-footer__wrapper">
+            <img src="{{addIcon}}" alt="">
+            {{{Input onChange=onChange}}}
+            {{{Button label="Отправить" onClick=sendMessage}}}
+        </div>
+    </footer>
+</div>
+{{else}}
+    <div class="chat-main__unselected">
+        Выбирете чат
+    </div>
+
+{{/if}}
+
+
+
